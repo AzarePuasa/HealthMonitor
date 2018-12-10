@@ -3,7 +3,8 @@ package com.azare.app.healthmonitor.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.azare.app.healthmonitor.db.HealthDBHelper;
+
+import com.azare.app.healthmonitor.model.BPReading;
 
 import java.sql.Date;
 import java.util.ArrayList;

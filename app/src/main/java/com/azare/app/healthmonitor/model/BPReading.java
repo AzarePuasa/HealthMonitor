@@ -1,5 +1,7 @@
 package com.azare.app.healthmonitor.model;
 
+import com.azare.app.healthmonitor.BPREADTYPE;
+
 import java.sql.Timestamp;
 
 public class BPReading {

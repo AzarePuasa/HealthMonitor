@@ -1,4 +1,4 @@
-package com.azare.app.healthmonitor;
+package com.azare.app.healthmonitor.model;
 
 public enum BPREADTYPE {
     MORNING,
