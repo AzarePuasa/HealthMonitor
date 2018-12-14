@@ -14,10 +14,13 @@ public class HealthDBHelper extends SQLiteOpenHelper {
 
     // Columns names for Blood Pressure
     public static final String COL_ID = "_id";
+    public static final String COL_DAY = "day";
+    public static final String COL_MONTH = "month";
+    public static final String COL_YEAR = "year";
+    public static final String COL_READ_TYPE = "readtype";
     public static final String COL_SYSTOLIC = "systolic";
     public static final String COL_DIASTOLIC = "diastolic";
-    public static final String COL_READ_TYPE = "readtype";
-    public static final String COL_DATETIME = "datetime";
+    public static final String COL_TIMESTAMP = "timestamp";
 
     private HealthDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -28,11 +31,14 @@ public class HealthDBHelper extends SQLiteOpenHelper {
         String sql_create_bp_table = "CREATE TABLE "
                 + TABLE_BLOOD_PRESSURE
                 + "("
-                + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + COL_SYSTOLIC + " INTEGER NOT NULL,"
-                + COL_DIASTOLIC + " INTEGER NOT NULL,"
-                + COL_READ_TYPE + " TEXT NOT NULL,"
-                + COL_DATETIME + " DATETIME DEFAULT (datetime('now','localtime'))"
+                + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COL_DAY + " INTEGER NOT NULL, "
+                + COL_MONTH + " INTEGER NOT NULL, "
+                + COL_YEAR + " INTEGER NOT NULL, "
+                + COL_READ_TYPE + " TEXT NOT NULL, "
+                + COL_SYSTOLIC + " INTEGER NOT NULL, "
+                + COL_DIASTOLIC + " INTEGER NOT NULL, "
+                + COL_TIMESTAMP + " DATETIME DEFAULT (datetime('now','localtime'))"
                 + ")";
 
         db.execSQL(sql_create_bp_table);

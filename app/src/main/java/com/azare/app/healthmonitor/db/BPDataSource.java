@@ -16,10 +16,13 @@ public class BPDataSource {
 
     private String[] allBPColumns = {
             HealthDBHelper.COL_ID,
+            HealthDBHelper.COL_DAY,
+            HealthDBHelper.COL_MONTH,
+            HealthDBHelper.COL_YEAR,
+            HealthDBHelper.COL_READ_TYPE,
             HealthDBHelper.COL_SYSTOLIC,
             HealthDBHelper.COL_DIASTOLIC,
-            HealthDBHelper.COL_READ_TYPE,
-            HealthDBHelper.COL_DATETIME
+            HealthDBHelper.COL_TIMESTAMP
     };
 
     public BPDataSource(Context context) {
@@ -27,6 +30,8 @@ public class BPDataSource {
     }
 
     public boolean addReading() {
+
+        /*TODO: get month from the current date.*/
 
         SQLiteDatabase database = m_HealthDBHelper.getWritableDatabase();
 
@@ -37,7 +42,7 @@ public class BPDataSource {
         return new ArrayList<BPReading>();
     }
 
-    public ArrayList<BPReading> currentMonth() {
+    public ArrayList<BPReading> currentMonth(Date dtStart, Date dtEnd) {
 
         /*TODO: get month from the current date.
         Extract the month. Query the DB for
@@ -46,7 +51,7 @@ public class BPDataSource {
         return new ArrayList<BPReading>();
     }
 
-    public ArrayList<BPReading> currentWeek() {
+    public ArrayList<BPReading> currentWeek(Date dtStart, Date dtEnd) {
 
         /*TODO: get week number from the current date.
 
@@ -54,7 +59,11 @@ public class BPDataSource {
         return new ArrayList<BPReading>();
     }
 
-    public ArrayList<BPReading> listCustom(Date start, Date end) {
+    public ArrayList<BPReading> listCustom(Date dtStart, Date dtEnd) {
         return new ArrayList<BPReading>();
+    }
+
+    public BPReading getReading(Date dtDate) {
+        return new BPReading();
     }
 }

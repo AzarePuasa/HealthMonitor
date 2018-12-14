@@ -3,13 +3,23 @@ package com.azare.app.healthmonitor.model;
 import java.sql.Timestamp;
 
 public class BPReading {
+    private int m_iDay;
+    private int m_iMonth;
+    private int m_iYear;
     private int m_iSystolic;
     private int m_iDiastolic;
     private BPREADTYPE m_bpReadType;
-    private Timestamp m_Timestamp;
+    private int m_Timestamp;
 
+    public BPReading() {
 
-    public BPReading(int iSystolic, int iDiastolic, BPREADTYPE bpReadType, Timestamp timestamp) {
+    }
+
+    public BPReading(int iDay, int iMonth, int iYear, int iSystolic,
+                     int iDiastolic, BPREADTYPE bpReadType, int timestamp) {
+        this.m_iDay = iDay;
+        this.m_iMonth = iMonth;
+        this.m_iYear = iYear;
         this.m_iSystolic = iSystolic;
         this.m_iDiastolic = iDiastolic;
         this.m_bpReadType = bpReadType;
@@ -40,16 +50,20 @@ public class BPReading {
         this.m_bpReadType = m_bpReadType;
     }
 
-    public Timestamp getTimestamp() {
+    public int getTimestamp() {
         return m_Timestamp;
     }
 
-    public void setTimestamp(Timestamp m_Timestamp) {
+    public void setTimestamp(int m_Timestamp) {
         this.m_Timestamp = m_Timestamp;
     }
 
     public String toString() {
         StringBuilder stbBPReading = new StringBuilder();
+
+        stbBPReading.append("\nDate: ").append(m_iDay)
+                .append("/").append(m_iMonth)
+                .append("/").append(m_iYear);
 
         stbBPReading.append("\nDiastolic: ").append(m_iDiastolic);
         stbBPReading.append("\tSystolic: ").append(m_iSystolic);

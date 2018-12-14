@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Health Monitor</string>
+    <string name="populatedb">Populate DB</string>
+    <string name="cleardb">Clear DB</string>
+
 </resources>
