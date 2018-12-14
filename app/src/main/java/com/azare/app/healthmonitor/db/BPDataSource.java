@@ -39,13 +39,18 @@ public class BPDataSource {
 
     public ArrayList<BPReading> currentMonth() {
 
-        //TODO: get month from the current date.
+        /*TODO: get month from the current date.
+        Extract the month. Query the DB for
+        readings that is within this month.
+         */
         return new ArrayList<BPReading>();
     }
 
     public ArrayList<BPReading> currentWeek() {
 
-        //TODO: get week number from the current date.
+        /*TODO: get week number from the current date.
+
+         */
         return new ArrayList<BPReading>();
     }
 
