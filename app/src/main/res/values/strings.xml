@@ -3,5 +3,6 @@
     <string name="populatedb">Populate DB</string>
     <string name="cleardb">Clear DB</string>
     <string name="showbpreading">Show BP Readings</string>
+    <string name="listintro">This is List BP Reading Activity</string>
 
 </resources>
