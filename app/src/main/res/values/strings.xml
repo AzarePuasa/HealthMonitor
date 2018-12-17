@@ -4,5 +4,7 @@
     <string name="cleardb">Clear DB</string>
     <string name="showbpreading">Show BP Readings</string>
     <string name="listintro">This is List BP Reading Activity</string>
-
+    <string name="normalbp">Generate Normal BP</string>
+    <string name="systolic">Systolic</string>
+    <string name="diastolic">Diastolic</string>
 </resources>

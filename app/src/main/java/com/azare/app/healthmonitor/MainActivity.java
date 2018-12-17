@@ -6,23 +6,30 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.azare.app.healthmonitor.model.BPREADTYPE;
 import com.azare.app.healthmonitor.model.BPReading;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
     Button btnPopulateDB;
     Button btnClearDB;
     Button btnShowBPReading;
+    Button btnGetNormalBP;
+
+    TextView tvSystolic;
+    TextView tvDiastolic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +39,10 @@ public class MainActivity extends AppCompatActivity {
         btnPopulateDB = (Button) findViewById(R.id.btnPopulateDB);
         btnClearDB = (Button) findViewById(R.id.btnClearDB);
         btnShowBPReading = (Button) findViewById(R.id.btnShowBPReading);
+        btnGetNormalBP = (Button) findViewById(R.id.btnNormalBP);
 
+        tvSystolic = (TextView) findViewById(R.id.tvMin);
+        tvDiastolic = (TextView) findViewById(R.id.tvMax);
 
         //event listener for button.
         btnPopulateDB.setOnClickListener(btnPopulateDBClicked);
@@ -40,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         btnClearDB.setOnClickListener(btnClearDBClicked);
 
         btnShowBPReading.setOnClickListener(btnShowBPReadingClicked);
+
+        btnGetNormalBP.setOnClickListener(btnNormalBPClicked);
     }
 
     /*
@@ -97,6 +109,21 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private View.OnClickListener btnNormalBPClicked = new View.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+
+            int[] iNormalBP = generateNormalBP();
+
+            String strSystolic = Integer.toString(iNormalBP[0]);
+            String strDiastolic = Integer.toString(iNormalBP[1]);
+
+            tvSystolic.setText(strSystolic);
+            tvDiastolic.setText(strDiastolic);
+        }
+    };
+
     /*
     Generate Dummy BP Readings for a specified start and end date.
      */
@@ -118,29 +145,53 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i("Health Monitor", "Days Between: " + daysBetween);
 
-        long[] morningTS = generateRandomTimeStamp(calStart.getTime(),7, 13);
-
-        for (long mrn : morningTS) {
-            Date dtTimeStamp = new Date(mrn);
-            Log.i("Health Monitor", "Millis: : " + mrn + "\tDate: " + dtTimeStamp);
-        }
-
-        long[] afternoonTS = generateRandomTimeStamp(calStart.getTime(), 13,19);
-
-        for (long aftn : afternoonTS) {
-            Date dtTimeStamp = new Date(aftn);
-            Log.i("Health Monitor", "Millis: : " + aftn + "\tDate: " + dtTimeStamp);
-        }
-
-        long[] eveningTS = generateRandomTimeStamp(calStart.getTime(),19,24);
-
-        for (long evn : eveningTS) {
-            Date dtTimeStamp = new Date(evn);
-            Log.i("Health Monitor", "Millis: : " + evn + "\tDate: " + dtTimeStamp);
-        }
-
-
         //TODO:loop through all days within the period
+        for (Date date = calStart.getTime(); calStart.before(calEnd);
+             calStart.add(Calendar.DATE, 1), date = calStart.getTime()) {
+
+            BPReading bpReading = new BPReading();
+            String strCurrentDate = sdf.format(date);
+            String[] strArrDate = strCurrentDate.split("/");
+
+            int iDay = Integer.parseInt(strArrDate[0]);
+            int iMth = Integer.parseInt(strArrDate[1]);
+            int iYear = Integer.parseInt(strArrDate[2]);
+
+            Log.i("Health Monitor", "Day: " + iDay + "\tMth: " + iMth + "\tYear: " + iYear);
+
+            for (BPREADTYPE type : BPREADTYPE.values()) {
+
+                Log.i("Health Monitor", "Read Type: " + type.name());
+                long[] periodTS = generateHourlyTS(calStart.getTime(),type);
+
+                int iRandomTS = getRandomizedInt(0,4);
+
+//                Log.i("Health Monitor", "Random TS Selected: " + iRandomTS);
+
+                long selectedTS = periodTS[iRandomTS];
+
+                Log.i("Health Monitor", "BP Reading Taken on: " + new Date(selectedTS));
+
+                int[] iNormalBP = generateNormalBP();
+
+                int iSystolic = iNormalBP[0];
+                int iDiastolic = iNormalBP[1];
+
+                bpReading.setDay(iDay);
+                bpReading.setMonth(iMth);
+                bpReading.setYear(iYear);
+                bpReading.setReadType(type);
+                bpReading.setTimestamp(selectedTS);
+                bpReading.setSystolic(iSystolic);
+                bpReading.setDiastolic(iDiastolic);
+
+                //Log.i("Health Monitor", bpReading.toString());
+
+                lDummyReadings.add(bpReading);
+            }
+
+        }
+
         //TODO: For each day, generate dummy date for each of the Reading Type.
         //TODO: Randomize values: systolic, diastolic, timestamp
 
@@ -154,10 +205,20 @@ public class MainActivity extends AppCompatActivity {
     private void populateBPReadingTbl(List<BPReading> lBPReadings) {
 
         //TODO: get db instance and call insert.
+        Log.i("Health Monitor", "Reading Count: " + lBPReadings.size());
+
+        for(BPReading reading: lBPReadings) {
+            Log.i("Health Monitor", reading.toString());
+        }
+
 
     }
 
-    private long[] generateRandomTimeStamp(Date date, int iStart, int iEnd) {
+    /*
+    Generate a list containing a hourly timestamp for the given
+    date and period.
+     */
+    private long[] generateHourlyTS(Date date, BPREADTYPE readType) {
 
         //TODO: generate random timestamp for morning Read Type.
 
@@ -171,17 +232,16 @@ public class MainActivity extends AppCompatActivity {
         //return the value for the array in that position.
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        cal.add(Calendar.HOUR_OF_DAY, iStart);
+        cal.add(Calendar.HOUR_OF_DAY, readType.getStartHour());
 
-        Log.i("Health Monitor", "Morning Start Time: " + cal.getTime());
+        Log.i("Health Monitor", readType.name().toLowerCase() + " Start Time: " + cal.getTime());
 
-        long[] millis = new long[iEnd-iStart];
+        int iCount = readType.getEndHour()-readType.getStartHour();
+        long[] millis = new long[iCount];
 
         Date dtmilli = cal.getTime();
         long startMilli = dtmilli.getTime();
         long currentmilli = 0;
-
-        int iCount = iEnd - iStart;
 
         for (int i=0; i < iCount; i++){
             long currentMilli = startMilli + currentmilli;
@@ -190,5 +250,32 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return millis;
+    }
+
+    private int[] generateNormalBP() {
+
+        int[] iNormalBP = new int[2];
+
+        int iSystolic = getRandomizedInt(110,119);
+
+        iNormalBP[0] = iSystolic;
+
+        int iDiastolic = getRandomizedInt(70,79);
+
+        iNormalBP[1] = iDiastolic;
+
+        return iNormalBP;
+    }
+
+
+    private int getRandomizedInt(int iMin, int iMax) {
+//        Log.i("Health Monitor", "Min: " + iMin);
+//        Log.i("Health Monitor", "Max: " + iMax);
+
+        Random rand = new Random();
+
+        int iRand = (int)rand.nextInt((iMax - iMin) + 1) + iMin;
+
+        return iRand;
     }
 }

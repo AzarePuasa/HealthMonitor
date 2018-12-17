@@ -89,7 +89,7 @@ public class BPReading {
         return m_Timestamp;
     }
 
-    public void setTimestamp(int m_Timestamp) {
+    public void setTimestamp(long m_Timestamp) {
 
         this.m_Timestamp = m_Timestamp;
     }
