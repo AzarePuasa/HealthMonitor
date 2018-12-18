@@ -97,16 +97,16 @@ public class BPReading {
     public String toString() {
         StringBuilder stbBPReading = new StringBuilder();
 
-        stbBPReading.append("\nDate: ").append(m_iDay)
+        stbBPReading.append("\nDate(Day/Mth/Year): ").append(m_iDay)
                 .append("/").append(m_iMonth)
                 .append("/").append(m_iYear);
 
-        stbBPReading.append("\nDiastolic: ").append(m_iDiastolic);
+        stbBPReading.append("\tDiastolic: ").append(m_iDiastolic);
         stbBPReading.append("\tSystolic: ").append(m_iSystolic);
         stbBPReading.append("\tReading Type: ").append(m_bpReadType);
 
         Date date = new Date(m_Timestamp);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss aaa");
 
         stbBPReading.append("\tDate Created: ").append(sdf.format(date));
 
