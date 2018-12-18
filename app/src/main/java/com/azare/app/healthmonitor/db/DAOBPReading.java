@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 
+import com.azare.app.healthmonitor.model.BPREADTYPE;
 import com.azare.app.healthmonitor.model.BPReading;
 
 import java.sql.Date;
@@ -40,12 +41,16 @@ public class DAOBPReading {
 
         long insertId = database.insert(HMDBtables.BPReadingTbl.BP_READING_TABLE, null, cv);
 
-        database.close();
-
         boolean isInserted = insertId == -1;
 
         return isInserted;
     }
+
+    public int delete(BPREADTYPE type) {
+        return database.delete(HMDBtables.BPReadingTbl.BP_READING_TABLE,
+                null, null);
+    }
+
 
     public ArrayList<BPReading> listAll() {
         return new ArrayList<BPReading>();

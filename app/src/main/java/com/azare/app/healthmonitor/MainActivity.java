@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amitshekhar.DebugDB;
+import com.azare.app.healthmonitor.db.DAOBPReading;
 import com.azare.app.healthmonitor.model.BPREADTYPE;
 import com.azare.app.healthmonitor.model.BPReading;
 
@@ -31,10 +33,16 @@ public class MainActivity extends AppCompatActivity {
     TextView tvSystolic;
     TextView tvDiastolic;
 
+    DAOBPReading daobpReading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        daobpReading = new DAOBPReading(this);
+
+        Log.i("Health Monitor", DebugDB.getAddressLog());
 
         btnPopulateDB = (Button) findViewById(R.id.btnPopulateDB);
         btnClearDB = (Button) findViewById(R.id.btnClearDB);
@@ -65,22 +73,25 @@ public class MainActivity extends AppCompatActivity {
             String strStartDate = "01/11/2018";
             String strEndDate = "30/11/2018";
             try {
-                List<BPReading> lDummyReadings = DummyBPReadings
-                        .generateDummyBPReadings(strStartDate,strEndDate);
+                DummyBPReadings dummyBPs = new DummyBPReadings(strStartDate, strEndDate);
 
-                if (lDummyReadings.size() > 0) {
-                    populateBPReadingTbl(lDummyReadings);
+                dummyBPs.generateDummyReading();
+
+                if (dummyBPs.getDummyReadings().size() > 0) {
+                    populateBPReadingTbl(dummyBPs.getDummyReadings());
                 }
-            } catch (Exception pse)
+                else {
+                    throw new Exception("Not able to generate Dummy BP Reading.");
+                }
+            } catch (Exception exp)
             {
                 Log.e("Health Monitor"
-                        , "Error Populating BP Readings Table" + pse.getMessage());
+                        , "Error Populating BP Readings Table" + exp.getMessage());
             }
 
            Toast.makeText(getApplicationContext()
                    ,"This button is to populate dummy rows the Table",
                    Toast.LENGTH_LONG).show();
-
         }
     };
 
@@ -91,12 +102,12 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+            int iCleared = daobpReading.delete(BPREADTYPE.AFTERNOON);
             Toast.makeText(getApplicationContext()
-                    ,"This button is to clear existings rows from the Table",
+                    ,"Cleared" + iCleared + " rows.",
                     Toast.LENGTH_LONG).show();
         }
     };
-
 
     /*
     Create intent and launch List BP Readings Activity.
@@ -129,12 +140,13 @@ public class MainActivity extends AppCompatActivity {
     Populate table for a specified start and end date.
     */
     private void populateBPReadingTbl(List<BPReading> lBPReadings) {
-
-        //TODO: get db instance and call insert.
         Log.i("Health Monitor", "Reading Count: " + lBPReadings.size());
 
         for(BPReading reading: lBPReadings) {
+            //TODO: get db instance and call insert.
             Log.i("Health Monitor", reading.toString());
+
+            daobpReading.insert(reading);
         }
     }
 }
