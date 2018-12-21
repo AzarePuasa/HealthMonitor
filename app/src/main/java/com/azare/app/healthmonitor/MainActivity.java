@@ -1,6 +1,8 @@
 package com.azare.app.healthmonitor;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -142,11 +144,39 @@ public class MainActivity extends AppCompatActivity {
     private void populateBPReadingTbl(List<BPReading> lBPReadings) {
         Log.i("Health Monitor", "Reading Count: " + lBPReadings.size());
 
-        for(BPReading reading: lBPReadings) {
-            //TODO: get db instance and call insert.
-            Log.i("Health Monitor", reading.toString());
+            class InsertRecord extends AsyncTask<BPReading, Void, Void> {
 
-            daobpReading.insert(reading);
-        }
+                ProgressDialog p;
+
+                @Override
+                protected Void doInBackground(BPReading... lists) {
+
+                    for (BPReading reading : lists) {
+                        //TODO: get db instance and call insert.
+                        Log.i("Health Monitor", reading.toString());
+                        daobpReading.insert(reading);
+                    }
+
+                    return null;
+                }
+
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    p = new ProgressDialog(MainActivity.this);
+                    p.setMessage("Please wait...Writing to Database");
+                    p.setIndeterminate(false);
+                    p.setCancelable(false);
+                    p.show();
+                }
+            }
+
+            InsertRecord st = new InsertRecord();
+
+            BPReading[] array = lBPReadings.toArray(new BPReading[lBPReadings.size()]);
+
+            st.execute(array);
+
+
     }
 }
