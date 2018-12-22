@@ -7,4 +7,6 @@
     <string name="normalbp">Generate Normal BP</string>
     <string name="systolic">Systolic</string>
     <string name="diastolic">Diastolic</string>
+    <string name="dummybpinfo">This Activity Generates Dummy BP Readings</string>
+    <string name="dummybp">Generate Dummy BP Reading</string>
 </resources>
