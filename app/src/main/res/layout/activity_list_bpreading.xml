@@ -14,6 +14,12 @@
         android:layout_margin="30dp"
         android:text="@string/listintro" />
 
+    <Button
+        android:id="@+id/btnGetAllReading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/getallbpreading" />
+
     <ListView
         android:id="@+id/lvBPReadings"
         android:layout_width="match_parent"

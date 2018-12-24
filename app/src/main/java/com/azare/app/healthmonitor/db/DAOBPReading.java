@@ -65,7 +65,7 @@ public class DAOBPReading {
      */
     public DailyBPReadings listAll() {
 
-        DailyBPReadings dailyBPReadings = new DailyBPReadings();
+        DailyBPReadings allDailyBPReadings = new DailyBPReadings();
 
         Cursor cursor = db_reader.query(HMDBtables.BPReadingTbl.BP_READING_TABLE,
                 HMDBtables.BPReadingTbl.ALL_COLUMNS, null,
@@ -91,19 +91,19 @@ public class DAOBPReading {
                 if (type == BPREADTYPE.MORNING) {
                     MorningBPReading morningBPReading = new MorningBPReading(iDay,iMonth,iYear,iSystolic,iDiastolic);
                     morningBPReading.setTimestamp(timestamp);
-                    dailyBPReadings.addMorningReading(strDate, morningBPReading);
+                    allDailyBPReadings.addMorningReading(strDate, morningBPReading);
                 }
                 else if (type == BPREADTYPE.AFTERNOON) {
                     AfternoonBPReading afternoonBPReading = new AfternoonBPReading(
                             iDay,iMonth,iYear,iSystolic,iDiastolic);
                     afternoonBPReading.setTimestamp(timestamp);
-                    dailyBPReadings.addAfternoonReading(strDate, afternoonBPReading );
+                    allDailyBPReadings.addAfternoonReading(strDate, afternoonBPReading );
                 }
                 else if (type == BPREADTYPE.EVENING) {
                     EveningBPReading eveningBPReading = new EveningBPReading(
                             iDay,iMonth,iYear,iSystolic,iDiastolic);
                     eveningBPReading.setTimestamp(timestamp);
-                    dailyBPReadings.addEveningReading(strDate, eveningBPReading );
+                    allDailyBPReadings.addEveningReading(strDate, eveningBPReading );
                 }
             } catch (Exception exp) {
                 Log.e("Health Monitor", "Fail to retrieve BP reading. " + exp.getMessage());
@@ -114,36 +114,36 @@ public class DAOBPReading {
 
         cursor.close();
 
-        return dailyBPReadings;
+        return allDailyBPReadings;
     }
 
     /**
-     * Get BP Readings of the last 30 Days
-     * @param dtStart
-     * @param dtEnd
+     * Get BP Readings of the last 30 Days.
      * @return
      */
-    public DailyBPReadings list30Days(Date dtStart, Date dtEnd) {
+    public DailyBPReadings listPrevious30Days() {
+
+        DailyBPReadings dailyBPReadings = new DailyBPReadings();
 
         /*TODO: get month from the current date.
         Extract the month. Query the DB for
         readings that is within this month.
          */
-        return new DailyBPReadings();
+        return dailyBPReadings;
     }
 
     /**
      * Get BP Readings of the last 7 Days
-     * @param dtStart
-     * @param dtEnd
      * @return
      */
-    public DailyBPReadings list7Days(Date dtStart, Date dtEnd) {
+    public DailyBPReadings listPrevious7Days() {
 
-        /*TODO: get week number from the current date.
+        DailyBPReadings dailyBPReadings = new DailyBPReadings();
+
+        /*TODO: get previous 7 days of BP Reading.
 
          */
-        return new DailyBPReadings();
+        return dailyBPReadings;
     }
 
     /**
@@ -153,7 +153,12 @@ public class DAOBPReading {
      * @return
      */
     public DailyBPReadings listCustom(Date dtStart, Date dtEnd) {
-        return new DailyBPReadings();
+
+        DailyBPReadings customDailyBPReadings = new DailyBPReadings();
+
+        //start and end date must be less than current date.
+
+        return customDailyBPReadings;
     }
 
     /**
@@ -162,6 +167,13 @@ public class DAOBPReading {
      * @return
      */
     public List<BPReading> getDayReading(Date dtDate) {
+
+        //date must be less than current date.
+
+        //convert date to text.
+
+        //query table where day, month and year is equals to parameter.
+
         return new ArrayList<BPReading>();
     }
 
@@ -172,6 +184,9 @@ public class DAOBPReading {
      * @return
      */
     public BPReading getReading(Date dtDate, BPREADTYPE type) {
+
+        //date must be less than current date.
+
         return new BPReading();
     }
 }

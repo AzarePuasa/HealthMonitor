@@ -24,7 +24,7 @@ public class DailyBPReadings {
 
     private DailyBPReading getDailyBPReading(String strDate) {
         for (DailyBPReading dailyBPReading : lDailyReadings) {
-            if(dailyBPReading.getDate() == strDate) {
+            if(dailyBPReading.getDate().equals(strDate)) {
                 return dailyBPReading;
             }
         }
@@ -42,7 +42,6 @@ public class DailyBPReadings {
 
         DailyBPReading dailyBPreading = getDailyBPReading(strDate);
         dailyBPreading.setMorningBP(morningBPReading);
-
     }
 
     public void addAfternoonReading(String strDate,
@@ -71,6 +70,17 @@ public class DailyBPReadings {
 
     public List<DailyBPReading> getDailyReadings() {
         return lDailyReadings;
+    }
+
+    public String toString() {
+
+        StringBuilder stb = new StringBuilder();
+
+        for (DailyBPReading dailyBPReading : lDailyReadings ) {
+            stb.append(dailyBPReading.toString());
+        }
+
+        return stb.toString();
     }
 
 
@@ -121,7 +131,16 @@ public class DailyBPReadings {
             this.eveningBP = eveningBP;
         }
 
+        public String toString() {
+
+            StringBuilder stb = new StringBuilder();
+
+            stb.append("\nDate: ").append(this.strDate);
+            stb.append("\nMorning: ").append(morningBP.getSystolic()).append("/").append(morningBP.getDiastolic());
+            stb.append("\nAfternoon: ").append(afternoonBP.getSystolic()).append("/").append(afternoonBP.getDiastolic());
+            stb.append("\nEvening: ").append(eveningBP.getSystolic()).append("/").append(eveningBP.getDiastolic());
+
+            return stb.toString();
+        }
     }
-
-
 }

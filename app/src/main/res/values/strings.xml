@@ -9,4 +9,5 @@
     <string name="diastolic">Diastolic</string>
     <string name="dummybpinfo">This Activity Generates Dummy BP Readings</string>
     <string name="dummybp">Generate Dummy BP Reading</string>
+    <string name="getallbpreading">Get All Reading</string>
 </resources>
