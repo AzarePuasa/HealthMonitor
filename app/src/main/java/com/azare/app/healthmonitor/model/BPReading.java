@@ -1,6 +1,5 @@
 package com.azare.app.healthmonitor.model;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -15,6 +14,10 @@ public class BPReading {
 
     public BPReading() {
 
+    }
+
+    public BPReading(BPREADTYPE bpReadType) {
+        this.m_bpReadType = bpReadType;
     }
 
     public BPReading(int iDay, int iMonth, int iYear, int iSystolic,
@@ -92,6 +95,10 @@ public class BPReading {
     public void setTimestamp(long m_Timestamp) {
 
         this.m_Timestamp = m_Timestamp;
+    }
+
+    public int[] getReading() {
+        return new int[]{m_iSystolic, m_iDiastolic};
     }
 
     public String toString() {

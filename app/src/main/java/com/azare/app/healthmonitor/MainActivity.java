@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     Button btnShowBPReading;
     Button btnDummyBPReading;
 
+    public static final String DATE_SEPERATOR = "/";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
