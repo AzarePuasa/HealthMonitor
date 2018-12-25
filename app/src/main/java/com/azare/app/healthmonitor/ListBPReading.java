@@ -15,7 +15,6 @@ import com.azare.app.healthmonitor.model.DailyBPReadings;
  */
 public class ListBPReading extends AppCompatActivity {
 
-    ListView lvBPReading;
     Button btnGetAllBPReading;
 
     DAOBPReading daobpReading;
@@ -27,7 +26,6 @@ public class ListBPReading extends AppCompatActivity {
 
         daobpReading = new DAOBPReading(this);
 
-        lvBPReading = (ListView) findViewById(R.id.lvBPReadings);
         btnGetAllBPReading = (Button) findViewById(R.id.btnGetAllReading);
 
         btnGetAllBPReading.setOnClickListener(btnGetAllReadingClicked);

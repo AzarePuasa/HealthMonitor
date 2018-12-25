@@ -10,4 +10,9 @@
     <string name="dummybpinfo">This Activity Generates Dummy BP Readings</string>
     <string name="dummybp">Generate Dummy BP Reading</string>
     <string name="getallbpreading">Get All Reading</string>
+    <string name="morninglbl">Morning</string>
+    <string name="afternoonlbl">Afternoon</string>
+    <string name="eveninglbl">Evening</string>
+    <string name="systolicplch">iSys</string>
+    <string name="diastolicplc">iDia</string>
 </resources>
