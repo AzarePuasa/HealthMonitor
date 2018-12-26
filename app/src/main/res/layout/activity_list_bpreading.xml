@@ -20,17 +20,8 @@
         android:layout_height="wrap_content"
         android:text="@string/getallbpreading" />
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/idCardView"
-        android:layout_margin="20dp"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        app:cardCornerRadius="4dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Hello World! This is the initial card view!!" />
-
-    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/allBPReading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

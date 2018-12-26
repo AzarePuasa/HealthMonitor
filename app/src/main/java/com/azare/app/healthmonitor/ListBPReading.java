@@ -2,6 +2,8 @@ package com.azare.app.healthmonitor;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,8 +17,10 @@ import com.azare.app.healthmonitor.model.DailyBPReadings;
  */
 public class ListBPReading extends AppCompatActivity {
 
-    Button btnGetAllBPReading;
+    RecyclerView recyclerView;
+    BPReadingAdapter bpReadingAdapter;
 
+    Button btnGetAllBPReading;
     DAOBPReading daobpReading;
 
     @Override
@@ -25,14 +29,22 @@ public class ListBPReading extends AppCompatActivity {
         setContentView(R.layout.activity_list_bpreading);
 
         daobpReading = new DAOBPReading(this);
+        //query table for readings.
+        DailyBPReadings dailyBPReadings = daobpReading.listAll();
+
+        recyclerView = (RecyclerView) findViewById(R.id.allBPReading);
+
+        //set adapter for list.
+        bpReadingAdapter = new BPReadingAdapter(dailyBPReadings);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        recyclerView.setAdapter(bpReadingAdapter);
 
         btnGetAllBPReading = (Button) findViewById(R.id.btnGetAllReading);
 
         btnGetAllBPReading.setOnClickListener(btnGetAllReadingClicked);
 
-        //query table for readings.
-
-        //set adapter for list.
     }
 
     private View.OnClickListener btnGetAllReadingClicked = new View.OnClickListener() {
