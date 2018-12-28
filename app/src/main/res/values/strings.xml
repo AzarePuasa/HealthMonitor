@@ -9,10 +9,19 @@
     <string name="diastolic">Diastolic</string>
     <string name="dummybpinfo">This Activity Generates Dummy BP Readings</string>
     <string name="dummybp">Generate Dummy BP Reading</string>
-    <string name="getallbpreading">Get All Reading</string>
+    <string name="getallbpreading">Print All Reading on Console</string>
     <string name="morninglbl">Morning</string>
     <string name="afternoonlbl">Afternoon</string>
     <string name="eveninglbl">Evening</string>
     <string name="systolicplch">iSys</string>
     <string name="diastolicplc">iDia</string>
+    <string name="addBPReading">Add BP Reading</string>
+    <string name="addbpintro">This is Add BP Reading Activity</string>
+    <string name="datelbl">Date:</string>
+    <string name="typelbl">Type:</string>
+    <string name="systoliclbl">Systolic:</string>
+    <string name="diastoliclbl">Diastolic:</string>
+    <string name="submitbtnlbl">Submit</string>
+    <string name="systolichint">120</string>
+    <string name="diastolichint">80</string>
 </resources>

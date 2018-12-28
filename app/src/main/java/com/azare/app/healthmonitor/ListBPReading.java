@@ -1,13 +1,13 @@
 package com.azare.app.healthmonitor;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 
 import com.azare.app.healthmonitor.db.DAOBPReading;
 import com.azare.app.healthmonitor.model.DailyBPReadings;
@@ -17,11 +17,14 @@ import com.azare.app.healthmonitor.model.DailyBPReadings;
  */
 public class ListBPReading extends AppCompatActivity {
 
+    DAOBPReading daobpReading;
+
     RecyclerView recyclerView;
     BPReadingAdapter bpReadingAdapter;
 
     Button btnGetAllBPReading;
-    DAOBPReading daobpReading;
+    Button btnAddBPReading;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,10 @@ public class ListBPReading extends AppCompatActivity {
 
         btnGetAllBPReading.setOnClickListener(btnGetAllReadingClicked);
 
+        btnAddBPReading = (Button)findViewById(R.id.btnAddBPReading);
+
+        btnAddBPReading.setOnClickListener(btnAddBPReadingClicked);
+
     }
 
     private View.OnClickListener btnGetAllReadingClicked = new View.OnClickListener() {
@@ -56,6 +63,15 @@ public class ListBPReading extends AppCompatActivity {
 
             Log.i("Health Monitor", dailyBPReadings.toString());
 
+        }
+    };
+
+    private View.OnClickListener btnAddBPReadingClicked = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            Intent bpReadingIntent = new Intent(getApplicationContext(), AddBPReading.class);
+            startActivity(bpReadingIntent);
         }
     };
 }

@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ListBPReading" />
-        <activity android:name=".DummyBPActivity"></activity>
+        <activity android:name=".DummyBPActivity" />
+        <activity android:name=".AddBPReading"></activity>
     </application>
 
 </manifest>

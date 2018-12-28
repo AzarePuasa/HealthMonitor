@@ -36,19 +36,28 @@ public class BPReadingAdapter extends RecyclerView.Adapter<BPReadingAdapter.BPRe
 
         DailyBPReading dailyBPReading = dailyBPReadings.getDailyReadings().get(position);
 
-        holder.tvReadingDate.setText(dailyBPReading.getDate());
+        String strDate = dailyBPReading.getDate();
+        String strMorningSys =  String.valueOf(dailyBPReading.getMorningBP().getSystolic());
+        String strMorningDia = String.valueOf(dailyBPReading.getMorningBP().getDiastolic());
 
-        Log.i("Health Monitor", "Reading morning: " + dailyBPReading.getMorningBP().getSystolic() );
+        String strAfternoonSys = String.valueOf(dailyBPReading.getAfternoonBP().getSystolic());
+        String strAfternoonDia = String.valueOf(dailyBPReading.getAfternoonBP().getDiastolic());
 
-        holder.tvMorningSystolic.setText(String.valueOf(dailyBPReading.getMorningBP().getSystolic()));
-        holder.tvMorningDiastolic.setText(String.valueOf(dailyBPReading.getMorningBP().getDiastolic()));
+        String strEveningSys = String.valueOf(dailyBPReading.getEveningBP().getSystolic());
+        String strEveningDia = String.valueOf(dailyBPReading.getEveningBP().getDiastolic());
 
-        holder.tvAfternoonSystolic.setText(String.valueOf(dailyBPReading.getAfternoonBP().getSystolic()));
-        holder.tvAfternoonDiastolic.setText(String.valueOf(dailyBPReading.getAfternoonBP().getDiastolic()));
+        Log.i("Health Monitor", "Reading morning: " + strMorningSys);
 
-        holder.tvEveningSystolic.setText(String.valueOf(dailyBPReading.getEveningBP().getSystolic()));
-        holder.tvEveningDiastolic.setText(String.valueOf(dailyBPReading.getEveningBP().getDiastolic()));
+        holder.tvReadingDate.setText(strDate);
 
+        holder.tvMorningSystolic.setText(strMorningSys);
+        holder.tvMorningDiastolic.setText(strMorningDia);
+
+        holder.tvAfternoonSystolic.setText(strAfternoonSys);
+        holder.tvAfternoonDiastolic.setText(strAfternoonDia);
+
+        holder.tvEveningSystolic.setText(strEveningSys);
+        holder.tvEveningDiastolic.setText(strEveningDia);
     }
 
     @Override

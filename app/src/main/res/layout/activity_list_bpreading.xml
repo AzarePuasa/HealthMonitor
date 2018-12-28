@@ -18,7 +18,19 @@
         android:id="@+id/btnGetAllReading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
         android:text="@string/getallbpreading" />
+
+    <Button
+        android:id="@+id/btnAddBPReading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/addBPReading" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/allBPReading"

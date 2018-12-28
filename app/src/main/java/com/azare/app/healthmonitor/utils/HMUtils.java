@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.azare.app.healthmonitor.model.BPREADTYPE;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -57,5 +58,24 @@ public class HMUtils {
         int iRand = (int)rand.nextInt((iMax - iMin) + 1) + iMin;
 
         return iRand;
+    }
+
+    public static String getCurrentDate(Date date) {
+
+        SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
+
+        String strDate = dateformat.format(date);
+
+        return strDate;
+    }
+
+    public static String getCurrentTime(Date date) {
+
+        SimpleDateFormat dateformat = new SimpleDateFormat("hh:mm:ss aa");
+
+
+        String strTime = dateformat.format(date);
+
+        return strTime;
     }
 }

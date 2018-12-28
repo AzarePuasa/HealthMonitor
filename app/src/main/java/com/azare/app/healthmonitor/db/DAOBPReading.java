@@ -89,7 +89,8 @@ public class DAOBPReading {
 
             try {
                 if (type == BPREADTYPE.MORNING) {
-                    MorningBPReading morningBPReading = new MorningBPReading(iDay,iMonth,iYear,iSystolic,iDiastolic);
+                    MorningBPReading morningBPReading = new MorningBPReading(
+                            iDay,iMonth,iYear,iSystolic,iDiastolic);
                     morningBPReading.setTimestamp(timestamp);
                     allDailyBPReadings.addMorningReading(strDate, morningBPReading);
                 }
