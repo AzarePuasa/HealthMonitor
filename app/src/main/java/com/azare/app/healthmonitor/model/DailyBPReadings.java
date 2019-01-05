@@ -70,6 +70,14 @@ public class DailyBPReadings {
         dailyBPreading.setEveningBP(eveningBPReading);
     }
 
+    public void addDailyBPReading( DailyBPReading dailyBPReading) {
+        lDailyReadings.add(dailyBPReading);
+    }
+
+    public void clear() {
+        this.lDailyReadings.clear();
+    }
+
     public List<DailyBPReading> getDailyReadings() {
         return lDailyReadings;
     }
@@ -78,8 +86,10 @@ public class DailyBPReadings {
 
         StringBuilder stb = new StringBuilder();
 
-        for (DailyBPReading dailyBPReading : lDailyReadings ) {
-            stb.append(dailyBPReading.toString());
+        if (lDailyReadings.size() > 0) {
+            for (DailyBPReading dailyBPReading : lDailyReadings ) {
+                stb.append(dailyBPReading.toString());
+            }
         }
 
         return stb.toString();

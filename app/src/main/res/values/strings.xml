@@ -26,6 +26,7 @@
     <string name="diastolichint">80</string>
     <string name="filterBPReading">Filter BP Reading</string>
     <string name="filterbpinfo">This Activity filter BP Readings</string>
+    <string name="filterNone">All Reading</string>
     <string name="filterMonth">Current Month</string>
     <string name="filterWeek">Current Week</string>
     <string name="filterCustom">Custom Period</string>

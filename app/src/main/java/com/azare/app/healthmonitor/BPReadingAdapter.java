@@ -21,6 +21,14 @@ public class BPReadingAdapter extends RecyclerView.Adapter<BPReadingAdapter.BPRe
         this.dailyBPReadings = dailyBPReadings;
     }
 
+    public void clear() {
+        dailyBPReadings.clear();
+    }
+
+    public void setDailyBPReadings(DailyBPReadings dailyBPReadings) {
+        this.dailyBPReadings = dailyBPReadings;
+    }
+
     @Override
     public BPReadingAdapter.BPReadingViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
@@ -37,27 +45,35 @@ public class BPReadingAdapter extends RecyclerView.Adapter<BPReadingAdapter.BPRe
         DailyBPReading dailyBPReading = dailyBPReadings.getDailyReadings().get(position);
 
         String strDate = dailyBPReading.getDate();
-        String strMorningSys =  String.valueOf(dailyBPReading.getMorningBP().getSystolic());
-        String strMorningDia = String.valueOf(dailyBPReading.getMorningBP().getDiastolic());
-
-        String strAfternoonSys = String.valueOf(dailyBPReading.getAfternoonBP().getSystolic());
-        String strAfternoonDia = String.valueOf(dailyBPReading.getAfternoonBP().getDiastolic());
-
-        String strEveningSys = String.valueOf(dailyBPReading.getEveningBP().getSystolic());
-        String strEveningDia = String.valueOf(dailyBPReading.getEveningBP().getDiastolic());
-
-        Log.i("Health Monitor", "Reading morning: " + strMorningSys);
 
         holder.tvReadingDate.setText(strDate);
 
-        holder.tvMorningSystolic.setText(strMorningSys);
-        holder.tvMorningDiastolic.setText(strMorningDia);
+        if (dailyBPReading.getMorningBP() != null) {
+            String strMorningSys =  String.valueOf(dailyBPReading.getMorningBP().getSystolic());
+            String strMorningDia = String.valueOf(dailyBPReading.getMorningBP().getDiastolic());
 
-        holder.tvAfternoonSystolic.setText(strAfternoonSys);
-        holder.tvAfternoonDiastolic.setText(strAfternoonDia);
+            Log.i("Health Monitor", "Reading morning: " + strMorningSys);
 
-        holder.tvEveningSystolic.setText(strEveningSys);
-        holder.tvEveningDiastolic.setText(strEveningDia);
+            holder.tvMorningSystolic.setText(strMorningSys);
+            holder.tvMorningDiastolic.setText(strMorningDia);
+        }
+
+        if (dailyBPReading.getAfternoonBP() != null) {
+            String strAfternoonSys = String.valueOf(dailyBPReading.getAfternoonBP().getSystolic());
+            String strAfternoonDia = String.valueOf(dailyBPReading.getAfternoonBP().getDiastolic());
+
+            holder.tvAfternoonSystolic.setText(strAfternoonSys);
+            holder.tvAfternoonDiastolic.setText(strAfternoonDia);
+        }
+
+        if (dailyBPReading.getEveningBP() != null) {
+            String strEveningSys = String.valueOf(dailyBPReading.getEveningBP().getSystolic());
+            String strEveningDia = String.valueOf(dailyBPReading.getEveningBP().getDiastolic());
+
+
+            holder.tvEveningSystolic.setText(strEveningSys);
+            holder.tvEveningDiastolic.setText(strEveningDia);
+        }
     }
 
     @Override

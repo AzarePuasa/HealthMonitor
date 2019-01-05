@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.azare.app.healthmonitor.DailyBPReading;
+import com.azare.app.healthmonitor.FilterBPActivity;
 import com.azare.app.healthmonitor.MainActivity;
 import com.azare.app.healthmonitor.model.AfternoonBPReading;
 import com.azare.app.healthmonitor.model.BPREADTYPE;
@@ -13,9 +15,12 @@ import com.azare.app.healthmonitor.model.BPReading;
 import com.azare.app.healthmonitor.model.DailyBPReadings;
 import com.azare.app.healthmonitor.model.EveningBPReading;
 import com.azare.app.healthmonitor.model.MorningBPReading;
+import com.azare.app.healthmonitor.utils.HMUtils;
 
-import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class DAOBPReading {
@@ -119,25 +124,129 @@ public class DAOBPReading {
     }
 
     /**
-     * Get BP Readings of the last 30 Days.
-     * @return
+     * Get BP Readings for the period specified.
+     * @return DailyBPReadings
      */
-    public DailyBPReadings listPrevious30Days() {
+    public DailyBPReadings listDailyReadings(Date dtStart, Date dtEnd) {
 
         DailyBPReadings dailyBPReadings = new DailyBPReadings();
 
-        /*TODO: get month from the current date.
-        Extract the month. Query the DB for
-        readings that is within this month.
-         */
+        // Iterate from start date to end date
+        Calendar cal = Calendar.getInstance();
+
+        cal.setTime(dtStart);
+
+        SimpleDateFormat sdf = new SimpleDateFormat(HMUtils.DATE_FORMAT);
+
+        while(cal.getTime().compareTo(dtEnd) < 0 || cal.getTime().compareTo(dtEnd) == 0 ) {
+
+            String strCurrentDate = sdf.format(cal.getTime());
+            Log.i("Health Monitor", "strCurrentDate: " + strCurrentDate );
+
+            DailyBPReading dailyBPReading = getDailyReading(strCurrentDate);
+            dailyBPReadings.addDailyBPReading(dailyBPReading);
+
+            cal.add(Calendar.DATE,1);
+        }
+
         return dailyBPReadings;
+    }
+
+    /**
+     * Get BP Reading for specific date.
+     * @param strCurrentDate
+     * @return
+     */
+    public DailyBPReading getDailyReading(String strCurrentDate) {
+
+        DailyBPReading dailyBPReading = new DailyBPReading(strCurrentDate);
+
+        int day = Integer.parseInt(strCurrentDate.split("/")[0]);
+        int month = Integer.parseInt(strCurrentDate.split("/")[1]) + 1;
+        int year = Integer.parseInt(strCurrentDate.split("/")[2]);
+
+        Log.i("Health Monitor", "strCurrentDate: " + strCurrentDate );
+        Log.i("Health Monitor", "Day: " + day + "Month: " + month + "year: " + year );
+
+        for (BPREADTYPE readType : BPREADTYPE.values()) {
+
+            //Using raw query.
+//                String sql = "SELECT * from " + HMDBtables.BPReadingTbl.BP_READING_TABLE
+//                        + " WHERE " + HMDBtables.BPReadingTbl.COL_DAY + "=" + day +" AND "
+//                        + HMDBtables.BPReadingTbl.COL_MONTH + "=" + month + " AND "
+//                        + HMDBtables.BPReadingTbl.COL_YEAR + "=" + year + " AND "
+//                        + HMDBtables.BPReadingTbl.COL_READ_TYPE + "=\"" + readType.name() + "\"";
+//
+//                Log.i("Health Monitor", "SQL Statement: " + sql);
+
+            //Cursor cursor = db_reader.rawQuery(sql, null);
+
+            String condition = HMDBtables.BPReadingTbl.COL_DAY + "= ?" + " AND "
+                    + HMDBtables.BPReadingTbl.COL_MONTH + "= ?" + " AND "
+                    + HMDBtables.BPReadingTbl.COL_YEAR + "= ?" + " AND "
+                    + HMDBtables.BPReadingTbl.COL_READ_TYPE + "=?";
+
+            String[] arguments = new String[]{Integer.toString(day), Integer.toString(month),
+                    Integer.toString(year), readType.name()};
+
+            Cursor cursor = db_reader.query(HMDBtables.BPReadingTbl.BP_READING_TABLE,
+                    HMDBtables.BPReadingTbl.ALL_COLUMNS, condition,
+                    arguments, null, null, null);
+
+            if (cursor != null) {
+                if (cursor.getCount() > 0) {
+                    cursor.moveToFirst();
+                    Log.i(FilterBPActivity.LOGTAG, "Number of Rows Retrieved: " + cursor.getCount());
+
+                    Log.i(FilterBPActivity.LOGTAG, String.valueOf(cursor.getCount()));
+
+                    long id = cursor.getLong(0);
+                    int iDay = cursor.getInt(1);
+                    int iMonth = cursor.getInt(2);
+                    int iYear = cursor.getInt(3);
+                    BPREADTYPE type = BPREADTYPE.valueOf(cursor.getString(4));
+                    int iSystolic = cursor.getInt(5);
+                    int iDiastolic = cursor.getInt(6);
+                    long timestamp = cursor.getLong(7);
+
+                    String strDate = iDay
+                            + MainActivity.DATE_SEPERATOR + iMonth
+                            + MainActivity.DATE_SEPERATOR + iYear;
+
+                    if (type == BPREADTYPE.MORNING) {
+                        MorningBPReading morningBPReading = new MorningBPReading(
+                                iDay, iMonth, iYear, iSystolic, iDiastolic);
+                        morningBPReading.setTimestamp(timestamp);
+                        dailyBPReading.setMorningBP(morningBPReading);
+                    } else if (type == BPREADTYPE.AFTERNOON) {
+                        AfternoonBPReading afternoonBPReading = new AfternoonBPReading(
+                                iDay, iMonth, iYear, iSystolic, iDiastolic);
+                        afternoonBPReading.setTimestamp(timestamp);
+                        dailyBPReading.setAfternoonBP(afternoonBPReading);
+                    } else if (type == BPREADTYPE.EVENING) {
+                        EveningBPReading eveningBPReading = new EveningBPReading(
+                                iDay, iMonth, iYear, iSystolic, iDiastolic);
+                        eveningBPReading.setTimestamp(timestamp);
+                        dailyBPReading.setEveningBP(eveningBPReading);
+                    }
+
+                    cursor.close();
+                } else {
+                    Log.i("Health Monitor", "No Readings retrieved for "
+                            + strCurrentDate + "(" + readType +")" );
+                }
+
+            }
+        }
+
+        return dailyBPReading;
     }
 
     /**
      * Get BP Readings of the last 7 Days
      * @return
      */
-    public DailyBPReadings listPrevious7Days() {
+    public DailyBPReadings listPrevious7Days(String startDate, String endDate) {
 
         DailyBPReadings dailyBPReadings = new DailyBPReadings();
 

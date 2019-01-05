@@ -17,7 +17,7 @@
 
     <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/tvIntro"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -25,24 +25,31 @@
         android:id="@+id/radioGroup_filter">
 
         <RadioButton
+            android:id="@+id/filterNone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/filterMonth"
-            android:id="@+id/filterMth"
+            android:text="@string/filterNone"
             android:checked="true" />
 
         <RadioButton
+            android:id="@+id/filterMth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/filterWeek"
-            android:id="@+id/filterWeek"
+            android:text="@string/filterMonth"
             android:checked="false" />
 
         <RadioButton
+            android:id="@+id/filterWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filterWeek"
+            android:checked="false" />
+
+        <RadioButton
+            android:id="@+id/filterCustom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/filterCustom"
-            android:id="@+id/filterCustom"
             android:checked="false" />
     </RadioGroup>
 

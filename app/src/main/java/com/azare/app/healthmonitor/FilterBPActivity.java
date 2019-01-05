@@ -3,6 +3,7 @@ package com.azare.app.healthmonitor;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,7 +19,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.azare.app.healthmonitor.model.BPFILTERTYPE;
+import com.azare.app.healthmonitor.model.BPReadingFilter;
+import com.azare.app.healthmonitor.utils.HMUtils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class FilterBPActivity extends AppCompatActivity {
 
@@ -29,13 +37,14 @@ public class FilterBPActivity extends AppCompatActivity {
     EditText etCustomEndDate;
 
     private RadioGroup radioGroupFilter;
+    private RadioButton radioBtnNone;
     private RadioButton radioBtnMonth;
     private RadioButton radioBtnWeek;
     private RadioButton radioBtnCustom;
 
     Button btnGetReadings;
 
-    private String LOGTAG = "Health Monitor";
+    public static final String LOGTAG = "Health Monitor";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +61,7 @@ public class FilterBPActivity extends AppCompatActivity {
         btnEndDatePicker.setOnClickListener(btnEndDatePickerClicked);
 
         radioGroupFilter = (RadioGroup) findViewById(R.id.radioGroup_filter);
+        radioBtnNone = (RadioButton) findViewById(R.id.filterNone);
         radioBtnMonth = (RadioButton) findViewById(R.id.filterMth);
         radioBtnWeek = (RadioButton) findViewById(R.id.filterWeek);
         radioBtnCustom = (RadioButton) findViewById(R.id.filterCustom);
@@ -59,6 +69,9 @@ public class FilterBPActivity extends AppCompatActivity {
         btnGetReadings = (Button) findViewById(R.id.getReadings);
 
         btnGetReadings.setOnClickListener(btnGetReadingClicked);
+
+        // When radio button "None" checked change.
+        radioBtnMonth.setOnCheckedChangeListener(radioBtnNoneChanged);
 
         // When radio button "Month" checked change.
         radioBtnMonth.setOnCheckedChangeListener(radioBtnMonthChanged);
@@ -85,7 +98,6 @@ public class FilterBPActivity extends AppCompatActivity {
         public void onClick(View v) {
             CustomEndDatePicker endDatePicker = new CustomEndDatePicker();
             endDatePicker.show(getSupportFragmentManager(), "End Date picker");
-
         }
     };
 
@@ -135,7 +147,7 @@ public class FilterBPActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            doFilterBPReading();
+            filterResult();
         }
     };
 
@@ -145,6 +157,14 @@ public class FilterBPActivity extends AppCompatActivity {
 
         Log.i(LOGTAG, "RadioButton "+ radio.getText()+" : "+ isChecked);
     }
+
+    private RadioButton.OnCheckedChangeListener radioBtnNoneChanged = new RadioButton.OnCheckedChangeListener() {
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            doOnFilterOptionChanged(buttonView,isChecked);
+        }
+    };
 
     private RadioButton.OnCheckedChangeListener radioBtnMonthChanged = new RadioButton.OnCheckedChangeListener() {
 
@@ -172,12 +192,10 @@ public class FilterBPActivity extends AppCompatActivity {
 
 
     // When button "Save" clicked.
-    private void doFilterBPReading()  {
+    private void filterResult()  {
 
         //get which radio button is selected.
         int filter = this.radioGroupFilter.getCheckedRadioButtonId();
-
-        //if custom is selected, need to verify
 
         RadioButton radioButtonFilter = (RadioButton) this.findViewById(filter);
 
@@ -187,24 +205,77 @@ public class FilterBPActivity extends AppCompatActivity {
 
         Toast.makeText(this,message,Toast.LENGTH_LONG).show();
 
-        if(radioButtonFilter.getText().equals(getResources().getString(R.string.filterMonth)))
+        Calendar cal = Calendar.getInstance();
+
+        Date dateToday = cal.getTime();
+
+        if(radioButtonFilter.getText()
+                .equals(getResources().getString(R.string.filterMonth)))
         {
-            //End date: current date
+            //End date: Today's Date
 
-            //Start date: current date - 1 Month
-        } else if (radioButtonFilter.getText().equals(getResources().getString(R.string.filterWeek))) {
-            //End date: current date
+            //Start date: Today - 1 Month
+            cal.add(Calendar.DATE, -30);
+            Date date30DaysAgo = cal.getTime();
 
-            //Start date: current date - 7 days
-        } else if (radioButtonFilter.getText().equals(getResources().getString(R.string.filterCustom))) {
+            sendResult(BPFILTERTYPE.MONTH, date30DaysAgo, dateToday);
+
+
+        } else if (radioButtonFilter.getText()
+                .equals(getResources().getString(R.string.filterWeek))) {
+            //End date: Today
+
+            //Start date: Today - 7 days
+            cal.add(Calendar.DATE, -7);
+            Date date7DaysAgo = cal.getTime();
+
+            sendResult(BPFILTERTYPE.WEEK, date7DaysAgo, dateToday);
+
+        } else if (radioButtonFilter.getText()
+                .equals(getResources().getString(R.string.filterCustom))) {
             //End date: text field
+            String strStartDate = etCustomStartDate.getText().toString();
 
             //Start date: text field
+            String strEndDate = etCustomEndDate.getText().toString();
+
+            //verify end date is >= start date.
+            try
+            {
+                SimpleDateFormat sdf = new SimpleDateFormat(HMUtils.DATE_FORMAT);
+
+                Date dtStart = sdf.parse(strStartDate);
+                Date dtEnd = sdf.parse(strEndDate);
+
+                if ((dtStart.compareTo(dtEnd) < 0) || (dtStart.compareTo(dtEnd) == 0)) {
+                    sendResult(BPFILTERTYPE.CUSTOM, dtStart, dtEnd);
+                }
+            }catch(ParseException pexp) {
+                Log.e(LOGTAG,"Unable to parse date string.");
+
+            }
+
+        } else if (radioButtonFilter.getText()
+                .equals(getResources().getString(R.string.filterNone))) {
+            sendResult(BPFILTERTYPE.ALL, null, null );
         }
+        else {
+            Log.i(LOGTAG, "Invalid Filter Type");
+        }
+    }
 
+    private void sendResult(BPFILTERTYPE type, Date dateStart, Date dateEnd) {
 
+        BPReadingFilter readingFilter = new BPReadingFilter(type, dateStart, dateEnd);
 
+        Intent result = new Intent();
 
+        // Pass relevant data back as a result
+        result.putExtra("filter", readingFilter);
+
+        // Activity finished ok, return the data
+        setResult(RESULT_OK, result); // set result code and bundle data for response
+        finish(); // closes the activity, pass data to parent
     }
 
 }

@@ -17,11 +17,10 @@ public class DailyBPReading {
     private EveningBPReading eveningBP;
 
     public DailyBPReading(String strDate) {
-
         this.strDate = strDate;
-        morningBP = null;
-        afternoonBP = null;
-        eveningBP = null;
+        this.morningBP = null;
+        this.afternoonBP = null;
+        this.eveningBP = null;
     }
 
     public String getDate() {
@@ -57,9 +56,17 @@ public class DailyBPReading {
         StringBuilder stb = new StringBuilder();
 
         stb.append("\nDate: ").append(this.strDate);
-        stb.append("\nMorning: ").append(morningBP.getSystolic()).append("/").append(morningBP.getDiastolic());
-        stb.append("\nAfternoon: ").append(afternoonBP.getSystolic()).append("/").append(afternoonBP.getDiastolic());
-        stb.append("\nEvening: ").append(eveningBP.getSystolic()).append("/").append(eveningBP.getDiastolic());
+        if (this.morningBP != null) {
+            stb.append("\nMorning: ").append(morningBP.getSystolic()).append("/").append(morningBP.getDiastolic());
+        }
+
+        if (this.afternoonBP != null) {
+            stb.append("\nAfternoon: ").append(afternoonBP.getSystolic()).append("/").append(afternoonBP.getDiastolic());
+        }
+
+        if (this.eveningBP != null) {
+            stb.append("\nEvening: ").append(eveningBP.getSystolic()).append("/").append(eveningBP.getDiastolic());
+        }
 
         return stb.toString();
     }

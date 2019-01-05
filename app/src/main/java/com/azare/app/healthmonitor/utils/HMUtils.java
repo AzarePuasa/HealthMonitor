@@ -11,6 +11,8 @@ import java.util.Random;
 
 public class HMUtils {
 
+    public static final String DATE_FORMAT = "dd/MM/yyyy";
+
     /*
     Generate a list containing a hourly timestamp for the given
     date and period.
