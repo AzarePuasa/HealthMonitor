@@ -89,8 +89,8 @@ public class DAOBPReading {
             long timestamp = cursor.getLong(7);
 
             String strDate = iDay
-                    + MainActivity.DATE_SEPERATOR + iMonth
-                    + MainActivity.DATE_SEPERATOR + iYear;
+                    + HMUtils.DATE_SEPERATOR + iMonth
+                    + HMUtils.DATE_SEPERATOR + iYear;
 
             try {
                 if (type == BPREADTYPE.MORNING) {
@@ -196,9 +196,9 @@ public class DAOBPReading {
             if (cursor != null) {
                 if (cursor.getCount() > 0) {
                     cursor.moveToFirst();
-                    Log.i(FilterBPActivity.LOGTAG, "Number of Rows Retrieved: " + cursor.getCount());
+                    Log.i(HMUtils.LOGTAG, "Number of Rows Retrieved: " + cursor.getCount());
 
-                    Log.i(FilterBPActivity.LOGTAG, String.valueOf(cursor.getCount()));
+                    Log.i(HMUtils.LOGTAG, String.valueOf(cursor.getCount()));
 
                     long id = cursor.getLong(0);
                     int iDay = cursor.getInt(1);
@@ -210,8 +210,8 @@ public class DAOBPReading {
                     long timestamp = cursor.getLong(7);
 
                     String strDate = iDay
-                            + MainActivity.DATE_SEPERATOR + iMonth
-                            + MainActivity.DATE_SEPERATOR + iYear;
+                            + HMUtils.DATE_SEPERATOR + iMonth
+                            + HMUtils.DATE_SEPERATOR + iYear;
 
                     if (type == BPREADTYPE.MORNING) {
                         MorningBPReading morningBPReading = new MorningBPReading(

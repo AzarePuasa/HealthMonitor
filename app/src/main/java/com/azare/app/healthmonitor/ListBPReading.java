@@ -3,12 +3,13 @@ package com.azare.app.healthmonitor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,25 +31,30 @@ public class ListBPReading extends AppCompatActivity  {
     RecyclerView recyclerView;
     BPReadingAdapter bpReadingAdapter;
 
-    Button btnGetAllBPReading;
-    Button btnAddBPReading;
-    Button btnFilterBPReading;
-
     TextView tvFilterStatus;
 
     DailyBPReadings dailyBPReadings;
+
+    ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_bpreading);
 
+        // Get ActionBar
+        actionBar = getSupportActionBar();
+
+        // Set below attributes to add logo in ActionBar.
+        actionBar.setDisplayOptions( ActionBar.DISPLAY_SHOW_HOME
+                | ActionBar.DISPLAY_SHOW_TITLE);
+
+        actionBar.setTitle("Health Monitor");
+
         currentfiltertype = BPFILTERTYPE.ALL;
 
         recyclerView = (RecyclerView) findViewById(R.id.allBPReading);
-        btnGetAllBPReading = (Button) findViewById(R.id.btnGetAllReading);
-        btnAddBPReading = (Button)findViewById(R.id.btnAddBPReading);
-        btnFilterBPReading = (Button) findViewById(R.id.btnFilterBPReading);
+
         tvFilterStatus = (TextView) findViewById(R.id.tvFilterStatus);
 
         daobpReading = new DAOBPReading(this);
@@ -63,45 +69,8 @@ public class ListBPReading extends AppCompatActivity  {
 
         recyclerView.setAdapter(bpReadingAdapter);
 
-        btnGetAllBPReading.setOnClickListener(btnGetAllReadingClicked);
-
-        btnAddBPReading.setOnClickListener(btnAddBPReadingClicked);
-
-        btnFilterBPReading.setOnClickListener(btnFilterBPReadingClicked);
-
         tvFilterStatus.setText(currentfiltertype.getStatusMsg());
     }
-
-    private View.OnClickListener btnGetAllReadingClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-            //fetch the BP readings from db
-            DailyBPReadings dailyBPReadings = daobpReading.listAll();
-
-            Log.i("Health Monitor", dailyBPReadings.toString());
-
-        }
-    };
-
-    private View.OnClickListener btnAddBPReadingClicked = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            Intent bpAddIntent = new Intent(getApplicationContext(), AddBPReading.class);
-            startActivity(bpAddIntent);
-        }
-    };
-
-    private View.OnClickListener btnFilterBPReadingClicked = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            Intent bpFilterIntent = new Intent(getApplicationContext(), FilterBPActivity.class);
-
-            startActivityForResult(bpFilterIntent, REQUEST_FILTER_CODE);
-        }
-    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -169,7 +138,35 @@ public class ListBPReading extends AppCompatActivity  {
                 Log.i("Health Monitor", "Error Processing filter");
 
             }
-
         }
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_listbpreading, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
+        case R.id.addBPItem:
+            Intent bpAddIntent = new Intent(getApplicationContext(), AddBPReading.class);
+            startActivity(bpAddIntent);
+
+            return(true);
+        case R.id.filterBPItem:
+            Intent bpFilterIntent = new Intent(getApplicationContext(), FilterBPActivity.class);
+
+            startActivityForResult(bpFilterIntent, REQUEST_FILTER_CODE);
+
+            return(true);
+        case R.id.printToConsole:
+            DailyBPReadings dailyBPReadings = daobpReading.listAll();
+
+            Log.i("Health Monitor", dailyBPReadings.toString());
+
+            return(true);
+    }
+        return(super.onOptionsItemSelected(item));
     }
 }

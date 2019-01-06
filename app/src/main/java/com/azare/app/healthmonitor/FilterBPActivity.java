@@ -44,8 +44,6 @@ public class FilterBPActivity extends AppCompatActivity {
 
     Button btnGetReadings;
 
-    public static final String LOGTAG = "Health Monitor";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -155,7 +153,7 @@ public class FilterBPActivity extends AppCompatActivity {
     private void doOnFilterOptionChanged(CompoundButton buttonView, boolean isChecked)  {
         RadioButton radio =(RadioButton) buttonView;
 
-        Log.i(LOGTAG, "RadioButton "+ radio.getText()+" : "+ isChecked);
+        Log.i(HMUtils.LOGTAG, "RadioButton "+ radio.getText()+" : "+ isChecked);
     }
 
     private RadioButton.OnCheckedChangeListener radioBtnNoneChanged = new RadioButton.OnCheckedChangeListener() {
@@ -201,7 +199,7 @@ public class FilterBPActivity extends AppCompatActivity {
 
         String message ="Filter: "+ radioButtonFilter.getText();
 
-        Log.i(LOGTAG, message);
+        Log.i(HMUtils.LOGTAG, message);
 
         Toast.makeText(this,message,Toast.LENGTH_LONG).show();
 
@@ -251,7 +249,7 @@ public class FilterBPActivity extends AppCompatActivity {
                     sendResult(BPFILTERTYPE.CUSTOM, dtStart, dtEnd);
                 }
             }catch(ParseException pexp) {
-                Log.e(LOGTAG,"Unable to parse date string.");
+                Log.e(HMUtils.LOGTAG,"Unable to parse date string.");
 
             }
 
@@ -260,7 +258,7 @@ public class FilterBPActivity extends AppCompatActivity {
             sendResult(BPFILTERTYPE.ALL, null, null );
         }
         else {
-            Log.i(LOGTAG, "Invalid Filter Type");
+            Log.i(HMUtils.LOGTAG, "Invalid Filter Type");
         }
     }
 
