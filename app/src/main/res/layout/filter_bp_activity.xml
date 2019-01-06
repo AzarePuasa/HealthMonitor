@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FilterBPActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvIntro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:text="@string/filterbpinfo" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvIntro"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/radioGroup_filter">
+
+        <RadioButton
+            android:id="@+id/filterNone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filterNone"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/filterMth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filterMonth"
+            android:checked="false" />
+
+        <RadioButton
+            android:id="@+id/filterWeek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filterWeek"
+            android:checked="false" />
+
+        <RadioButton
+            android:id="@+id/filterCustom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filterCustom"
+            android:checked="false" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/customDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroup_filter"
+        android:orientation="horizontal"
+        android:baselineAligned="false"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/customstartdatelbl"
+                android:id="@+id/btnStartDatePicker"/>
+
+            <EditText
+                android:id="@+id/etCustomStartDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:ems="10"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/customenddatelbl"
+                android:id="@+id/btnEndDatePicker"/>
+
+            <EditText
+                android:id="@+id/etCustomEndDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:ems="10"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_below="@+id/customDate"
+        android:text="@string/customfilterbtn"
+        android:id="@+id/getReadings"/>
+
+</RelativeLayout>

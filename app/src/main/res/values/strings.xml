@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">Health Monitor</string>
+    <string name="populatedb">Populate DB</string>
+    <string name="cleardb">Clear DB</string>
+    <string name="showbpreading">Show BP Readings</string>
+    <string name="listintro">This is List BP Reading Activity</string>
+    <string name="normalbp">Generate Normal BP</string>
+    <string name="systolic">Systolic</string>
+    <string name="diastolic">Diastolic</string>
+    <string name="dummybpinfo">This Activity Generates Dummy BP Readings</string>
+    <string name="dummybp">Generate Dummy BP Reading</string>
+    <string name="getallbpreading">Print All Reading on Console</string>
+    <string name="morninglbl">Morning</string>
+    <string name="afternoonlbl">Afternoon</string>
+    <string name="eveninglbl">Evening</string>
+    <string name="systolicplch">iSys</string>
+    <string name="diastolicplc">iDia</string>
+    <string name="addBPReading">Add BP Reading</string>
+    <string name="addbpintro">This is Add BP Reading Activity</string>
+    <string name="datelbl">Date:</string>
+    <string name="typelbl">Type:</string>
+    <string name="systoliclbl">Systolic:</string>
+    <string name="diastoliclbl">Diastolic:</string>
+    <string name="submitbtnlbl">Submit</string>
+    <string name="systolichint">120</string>
+    <string name="diastolichint">80</string>
+    <string name="filterBPReading">Filter BP Reading</string>
+    <string name="filterbpinfo">This Activity filter BP Readings</string>
+    <string name="filterNone">All Reading</string>
+    <string name="filterMonth">Current Month</string>
+    <string name="filterWeek">Current Week</string>
+    <string name="filterCustom">Custom Period</string>
+    <string name="customstartdatelbl">Start:</string>
+    <string name="customenddatelbl">End:</string>
+    <string name="customfilterbtn">Get Readings</string>
 </resources>

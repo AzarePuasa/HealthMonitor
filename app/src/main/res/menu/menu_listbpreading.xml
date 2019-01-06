@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ListBPReading">
+    <item
+        android:id="@+id/addBPItem"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/addBPReading"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/filterBPItem"
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="@string/filterBPReading"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/printToConsole"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="@string/getallbpreading"
+        app:showAsAction="never"></item>
+
+</menu>
