@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,7 +16,6 @@ import com.azare.app.healthmonitor.utils.HMUtils;
 public class MainActivity extends AppCompatActivity {
 
     Button btnShowBPReading;
-    Button btnDummyBPReading;
 
     ActionBar actionBar;
 
@@ -35,10 +36,8 @@ public class MainActivity extends AppCompatActivity {
         Log.i(HMUtils.LOGTAG, DebugDB.getAddressLog());
 
         btnShowBPReading = (Button) findViewById(R.id.btnShowBPReading);
-        btnDummyBPReading = (Button) findViewById(R.id.btnDummyBPReading);
 
         btnShowBPReading.setOnClickListener(btnShowBPReadingClicked);
-        btnDummyBPReading.setOnClickListener(btnDummyBPReadingClicked);
     }
 
     /*
@@ -53,14 +52,22 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private View.OnClickListener btnDummyBPReadingClicked = new View.OnClickListener(){
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
-        @Override
-        public void onClick(View v) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.dummyBP:
+                //TODO: pass start and end date to activity.
+                Intent dummyBPIntent = new Intent(MainActivity.this, DummyBPActivity.class);
+                startActivity(dummyBPIntent);
 
-            //TODO: pass start and end date to activity.
-            Intent dummyBPIntent = new Intent(MainActivity.this, DummyBPActivity.class);
-            startActivity(dummyBPIntent);
+                return (true);
         }
-    };
+        return (super.onOptionsItemSelected(item));
+    }
 }

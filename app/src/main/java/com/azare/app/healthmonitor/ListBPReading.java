@@ -148,25 +148,26 @@ public class ListBPReading extends AppCompatActivity  {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
-        case R.id.addBPItem:
-            Intent bpAddIntent = new Intent(getApplicationContext(), AddBPReading.class);
-            startActivity(bpAddIntent);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.addBPItem:
+                Intent bpAddIntent = new Intent(getApplicationContext(), AddBPReading.class);
+                startActivity(bpAddIntent);
 
-            return(true);
-        case R.id.filterBPItem:
-            Intent bpFilterIntent = new Intent(getApplicationContext(), FilterBPActivity.class);
+                return (true);
+            case R.id.filterBPItem:
+                Intent bpFilterIntent = new Intent(getApplicationContext(), FilterBPActivity.class);
 
-            startActivityForResult(bpFilterIntent, REQUEST_FILTER_CODE);
+                startActivityForResult(bpFilterIntent, REQUEST_FILTER_CODE);
 
-            return(true);
-        case R.id.printToConsole:
-            DailyBPReadings dailyBPReadings = daobpReading.listAll();
+                return (true);
+            case R.id.printToConsole:
+                DailyBPReadings dailyBPReadings = daobpReading.listAll();
 
-            Log.i("Health Monitor", dailyBPReadings.toString());
+                Log.i("Health Monitor", dailyBPReadings.toString());
 
-            return(true);
-    }
-        return(super.onOptionsItemSelected(item));
+                return (true);
+        }
+        return (super.onOptionsItemSelected(item));
     }
 }

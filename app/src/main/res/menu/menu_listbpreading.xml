@@ -17,7 +17,7 @@
 
     <item
         android:id="@+id/printToConsole"
-        android:icon="@android:drawable/ic_dialog_info"
+        android:icon="@android:drawable/ic_menu_agenda"
         android:title="@string/getallbpreading"
         app:showAsAction="never"></item>
 

@@ -1,7 +1,7 @@
 package com.azare.app.healthmonitor;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +14,6 @@ import com.azare.app.healthmonitor.model.BPReading;
 import com.azare.app.healthmonitor.model.BPReadingFactory;
 import com.azare.app.healthmonitor.utils.HMUtils;
 
-import java.util.Calendar;
 import java.util.Date;
 
 public class AddBPReading extends AppCompatActivity {
@@ -88,9 +87,6 @@ public class AddBPReading extends AppCompatActivity {
             if ( daobpReading.insert(bpReading) ) {
                 Log.i("Health Monitor", "Successfully inserted reading");
             }
-
-
-
         }
     };
 }
