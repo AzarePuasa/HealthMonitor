@@ -33,4 +33,8 @@
     <string name="customstartdatelbl">Start:</string>
     <string name="customenddatelbl">End:</string>
     <string name="customfilterbtn">Get Readings</string>
+    <string name="showweights">Show Weight Records</string>
+    <string name="weightactivityinfo">This Activity Generates Dummy BP Readings</string>
+    <string name="dummyweight">Generate Dummy Weight Records</string>
+    <string name="dummyweightinfo">This Activity Generates Dummy Weight Readings</string>
 </resources>

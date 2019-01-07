@@ -3,12 +3,9 @@ package com.azare.app.healthmonitor.db;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.azare.app.healthmonitor.DailyBPReading;
-import com.azare.app.healthmonitor.FilterBPActivity;
-import com.azare.app.healthmonitor.MainActivity;
 import com.azare.app.healthmonitor.model.AfternoonBPReading;
 import com.azare.app.healthmonitor.model.BPREADTYPE;
 import com.azare.app.healthmonitor.model.BPReading;
@@ -23,18 +20,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class DAOBPReading {
-
-    private SQLiteDatabase db_writer;
-    private SQLiteDatabase db_reader;
-
-    // Database fields
-    private HMDBHelper m_HMDBHelper;
+public class DAOBPReading extends DAOHealthMonitor {
 
     public DAOBPReading(Context context) {
-        m_HMDBHelper = HMDBHelper.getInstance(context);
-        db_writer = m_HMDBHelper.getWritableDatabase();
-        db_reader = m_HMDBHelper.getReadableDatabase();
+        super(context);
     }
 
     /*

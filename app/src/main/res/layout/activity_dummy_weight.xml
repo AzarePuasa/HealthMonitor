@@ -4,26 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    tools:context=".MainActivity"
+    tools:context=".DummyWeightActivity"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnShowBPReading"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/dummyweightinfo"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/showbpreading"/>
+        android:textSize="20sp"/>
 
     <Button
-        android:id="@+id/btnShowWeightRecords"
+        android:id="@+id/btnPopulateDB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="@string/populatedb" />
+
+    <Button
+        android:id="@+id/btnClearDB"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="15dp"
-        android:text="@string/showweights"/>
+        android:text="@string/cleardb" />
 
 </LinearLayout>

@@ -11,4 +11,10 @@
         android:title="@string/dummybp"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/dummyWeight"
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="@string/dummyweight"
+        app:showAsAction="never" />
+
 </menu>
