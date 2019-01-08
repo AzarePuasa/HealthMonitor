@@ -3,6 +3,7 @@ package com.azare.app.healthmonitor.db;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.azare.app.healthmonitor.DailyBPReading;
@@ -20,7 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class DAOBPReading extends DAOHealthMonitor {
+public class DAOBPReading extends DAOHealthMonitor{
 
     public DAOBPReading(Context context) {
         super(context);

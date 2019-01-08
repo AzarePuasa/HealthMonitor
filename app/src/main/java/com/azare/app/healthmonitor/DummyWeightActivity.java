@@ -8,7 +8,11 @@ import android.widget.Button;
 
 import com.azare.app.healthmonitor.db.DAOBPReading;
 import com.azare.app.healthmonitor.db.DAOBWeightRecord;
+import com.azare.app.healthmonitor.model.BPReading;
+import com.azare.app.healthmonitor.model.WeightRecord;
 import com.azare.app.healthmonitor.utils.HMUtils;
+
+import java.util.List;
 
 public class DummyWeightActivity extends AppCompatActivity {
 
@@ -41,10 +45,16 @@ public class DummyWeightActivity extends AppCompatActivity {
             try {
                 DummyWeightRecords dummyWeightRecords = new DummyWeightRecords();
 
-                dummyWeightRecords.getDummyReadings();
+                dummyWeightRecords.generateDummyReading();
 
-                if (dummyWeightRecords.getDummyReadings().size() > 0) {
-                    //call DAO method to write to db.
+                List<WeightRecord> allDummyWeight = dummyWeightRecords.getDummyReadings();
+
+                if (allDummyWeight.size() > 0) {
+                    //print weight Records
+                    for ( WeightRecord record : allDummyWeight ) {
+                        Log.i(HMUtils.LOGTAG, record.toString());
+                        daoWeightRecord.insert(record);
+                    }
 
                 } else {
                     throw new Exception("Not able to generate Dummy Weight Record.");
@@ -61,6 +71,7 @@ public class DummyWeightActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             //TODO: Call DAO method to delete Weight Record from db.
+            daoWeightRecord.delete();
         }
     };
 }

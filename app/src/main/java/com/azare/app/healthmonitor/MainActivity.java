@@ -85,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
                 return (true);
 
             case R.id.dummyWeight:
+                Intent dummyWeight = new Intent(MainActivity.this, DummyWeightActivity.class);
+                startActivity(dummyWeight);
+
+                return (true);
 
         }
         return (super.onOptionsItemSelected(item));

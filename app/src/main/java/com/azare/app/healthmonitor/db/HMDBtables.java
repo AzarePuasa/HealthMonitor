@@ -5,7 +5,6 @@ public class HMDBtables {
     public static abstract class BPReadingTbl {
         public static final String BP_READING_TABLE = "tbl_bpreading";
 
-
         // Columns names for Blood Pressure
         public static final String COL_BP_ID = "_id";
         public static final String COL_DAY = "day";

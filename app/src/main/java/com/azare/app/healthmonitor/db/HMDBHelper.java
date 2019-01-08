@@ -28,8 +28,21 @@ public class HMDBHelper extends SQLiteOpenHelper {
             + HMDBtables.BPReadingTbl.COL_DIASTOLIC + INTEGER_TYPE + COL_NOT_NULL+ ", "
             + HMDBtables.BPReadingTbl.COL_TIMESTAMP + INTEGER_TYPE + COL_NOT_NULL + ")";
 
-    private static final String DELETE_TEXTREPORT_TABLE = "DROP TABLE IF EXISTS "
+    private static final String CREATE_WEIGHT_RECORD_TABLE = "CREATE TABLE "
+            + HMDBtables.WeightRecordTbl.WEIGHT_RECORD_TABLE
+            + "("
+            + HMDBtables.WeightRecordTbl.COL_WEIGHT_ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT, "
+            + HMDBtables.WeightRecordTbl.COL_DAY + INTEGER_TYPE + COL_NOT_NULL + ", "
+            + HMDBtables.WeightRecordTbl.COL_MONTH + INTEGER_TYPE + COL_NOT_NULL+ ", "
+            + HMDBtables.WeightRecordTbl.COL_YEAR + INTEGER_TYPE + COL_NOT_NULL+ ", "
+            + HMDBtables.WeightRecordTbl.COL_WEIGHT + INTEGER_TYPE + COL_NOT_NULL+ ", "
+            + HMDBtables.BPReadingTbl.COL_TIMESTAMP + INTEGER_TYPE + COL_NOT_NULL + ")";
+
+    private static final String DELETE_BP_READING_TABLE = "DROP TABLE IF EXISTS "
             + HMDBtables.BPReadingTbl.BP_READING_TABLE;
+
+    private static final String DELETE_WEIGHT_RECORD_TABLE = "DROP TABLE IF EXISTS "
+            + HMDBtables.WeightRecordTbl.WEIGHT_RECORD_TABLE;
 
     private HMDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -38,13 +51,15 @@ public class HMDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_BP_READING_TABLE);
+        db.execSQL(CREATE_WEIGHT_RECORD_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion != newVersion) {
 
-            db.execSQL(DELETE_TEXTREPORT_TABLE);
+            db.execSQL(DELETE_BP_READING_TABLE);
+            db.execSQL(DELETE_WEIGHT_RECORD_TABLE);
             onCreate(db);
         }
     }

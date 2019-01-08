@@ -3,8 +3,6 @@ package com.azare.app.healthmonitor.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.azare.app.healthmonitor.model.WeightRecord;
-
 public class DAOHealthMonitor {
 
     protected SQLiteDatabase db_writer;
@@ -19,7 +17,5 @@ public class DAOHealthMonitor {
         db_reader = m_HMDBHelper.getReadableDatabase();
     }
 
-    public boolean insert(WeightRecord wRecord) {
-        return true;
-    }
+
 }

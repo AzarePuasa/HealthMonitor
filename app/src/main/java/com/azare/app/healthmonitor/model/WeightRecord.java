@@ -36,7 +36,7 @@ public class WeightRecord {
         this.m_iMonth = m_iMonth;
     }
 
-    public int getM_iYear() {
+    public int getYear() {
         return m_iYear;
     }
 
