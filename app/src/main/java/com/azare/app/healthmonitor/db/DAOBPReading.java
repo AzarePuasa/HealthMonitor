@@ -3,7 +3,6 @@ package com.azare.app.healthmonitor.db;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.azare.app.healthmonitor.DailyBPReading;
@@ -32,7 +31,6 @@ public class DAOBPReading extends DAOHealthMonitor{
      */
     public boolean insert(BPReading bpReading) {
 
-        /*TODO: get month from the current date.*/
         // Create a new map of values, where column names are the keys
         ContentValues cv = new ContentValues();
         cv.put(HMDBtables.BPReadingTbl.COL_DAY, bpReading.getDay());
@@ -45,7 +43,7 @@ public class DAOBPReading extends DAOHealthMonitor{
 
         long insertId = db_writer.insert(HMDBtables.BPReadingTbl.BP_READING_TABLE, null, cv);
 
-        boolean isInserted = insertId == -1;
+        boolean isInserted = insertId > -1? true : false;
 
         return isInserted;
     }
@@ -152,7 +150,7 @@ public class DAOBPReading extends DAOHealthMonitor{
         DailyBPReading dailyBPReading = new DailyBPReading(strCurrentDate);
 
         int day = Integer.parseInt(strCurrentDate.split("/")[0]);
-        int month = Integer.parseInt(strCurrentDate.split("/")[1]) + 1;
+        int month = Integer.parseInt(strCurrentDate.split("/")[1]);
         int year = Integer.parseInt(strCurrentDate.split("/")[2]);
 
         Log.i("Health Monitor", "strCurrentDate: " + strCurrentDate );

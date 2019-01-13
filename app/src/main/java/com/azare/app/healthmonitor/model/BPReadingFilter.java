@@ -31,4 +31,16 @@ public class BPReadingFilter implements Serializable {
     public BPFILTERTYPE getFilterType() {
         return filterType;
     }
+
+    public void setStartDate(Date dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public void setEndDate(Date dateEnd) {
+        this.dateEnd = dateEnd;
+    }
+
+    public void getFilterType(BPFILTERTYPE bpfiltertype) {
+        this.filterType = bpfiltertype;
+    }
 }

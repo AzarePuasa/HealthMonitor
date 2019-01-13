@@ -21,7 +21,8 @@
         <activity android:name=".AddBPReading" />
         <activity android:name=".FilterBPActivity" />
         <activity android:name=".ListWeightRecord" />
-        <activity android:name=".DummyWeightActivity"></activity>
+        <activity android:name=".DummyWeightActivity" />
+        <activity android:name=".AddWeightRecord"></activity>
     </application>
 
 </manifest>

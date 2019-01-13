@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.azare.app.healthmonitor.db.DAOBPReading;
 import com.azare.app.healthmonitor.model.BPREADTYPE;
@@ -85,7 +86,11 @@ public class AddBPReading extends AppCompatActivity {
             BPReading bpReading = BPReadingFactory.createBPReading(iDay,iMth,iYear,iSystolic,iDiastolic,bpreadtype);
 
             if ( daobpReading.insert(bpReading) ) {
-                Log.i("Health Monitor", "Successfully inserted reading");
+                String successMsg = getResources().getString(R.string.successmsg);
+
+                Log.i("Health Monitor", successMsg);
+
+                Toast.makeText(getApplicationContext(), successMsg, Toast.LENGTH_SHORT ).show();
             }
         }
     };

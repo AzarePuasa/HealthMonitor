@@ -17,11 +17,11 @@ import java.util.Map;
 public class DummyWeightRecords implements IDummyReading {
 
     List<WeightRecord> lDummyWeights;
-    HashMap<String, Integer> mapDateWeight;
+    HashMap<String, Double> mapDateWeight;
 
     public DummyWeightRecords() {
         this.lDummyWeights = new ArrayList<WeightRecord>();
-        mapDateWeight = new HashMap<String, Integer>();
+        mapDateWeight = new HashMap<String, Double>();
 
         // Dummy Weight Records map.
         // One reading a month from july 2018 to Dec 2018.
@@ -29,12 +29,16 @@ public class DummyWeightRecords implements IDummyReading {
         // Create a map of Date/Time string and weight,
         // one entry for each month.
         // The time must be between 10pm and 8am.
-        mapDateWeight.put("10/07/2018 11:05:22", 77);
-        mapDateWeight.put("12/08/2018 14:30:01", 77);
-        mapDateWeight.put("15/09/2018 15:10:30", 78);
-        mapDateWeight.put("13/10/2018 17:00:20", 78);
-        mapDateWeight.put("14/11/2018 09:30:50", 79);
-        mapDateWeight.put("16/12/2018 10:15:00", 78);
+        mapDateWeight.put("10/07/2018 11:05:22", 77.1);
+        mapDateWeight.put("12/08/2018 14:30:01", 77.4);
+        mapDateWeight.put("15/09/2018 15:10:30", 78.0);
+        mapDateWeight.put("13/10/2018 17:00:20", 78.1);
+        mapDateWeight.put("14/11/2018 09:30:50", 79.2);
+        mapDateWeight.put("16/12/2018 10:15:00", 78.0);
+
+        for (Map.Entry<String,Double> entry : mapDateWeight.entrySet() ) {
+            Log.i( HMUtils.LOGTAG, "Key:" + entry.getKey() + "\tValue:" + entry.getValue() );
+        }
     }
 
     @Override
@@ -48,7 +52,7 @@ public class DummyWeightRecords implements IDummyReading {
         SimpleDateFormat sdf = new SimpleDateFormat(HMUtils.DATE_TIME_FORMAT);
 
         try {
-            for (Map.Entry<String, Integer> entry : mapDateWeight.entrySet()) {
+            for (Map.Entry<String, Double> entry : mapDateWeight.entrySet()) {
 
                 Date date = sdf.parse(entry.getKey());
 

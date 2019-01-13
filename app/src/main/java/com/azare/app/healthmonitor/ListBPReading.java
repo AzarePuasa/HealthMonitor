@@ -17,6 +17,9 @@ import com.azare.app.healthmonitor.db.DAOBPReading;
 import com.azare.app.healthmonitor.model.BPFILTERTYPE;
 import com.azare.app.healthmonitor.model.BPReadingFilter;
 import com.azare.app.healthmonitor.model.DailyBPReadings;
+import com.azare.app.healthmonitor.utils.HMUtils;
+
+import java.text.SimpleDateFormat;
 
 /**
  * This activity will list the Blood Pressure readings.
@@ -86,7 +89,6 @@ public class ListBPReading extends AppCompatActivity  {
 
             currentfiltertype =readingFilter.getFilterType();
 
-
             if (readingFilter.getFilterType() == BPFILTERTYPE.ALL) {
                 //clear list
                 //query table for readings.
@@ -97,31 +99,6 @@ public class ListBPReading extends AppCompatActivity  {
                 dailyBPReadings = daobpReading.listAll();
                 bpReadingAdapter.setDailyBPReadings(dailyBPReadings);
                 bpReadingAdapter.notifyDataSetChanged();
-
-            } else if (readingFilter.getFilterType() == BPFILTERTYPE.MONTH) {
-                //clear list
-                //query table for readings.
-                //update list in adapter.
-                //call notifyDataSetChanged()
-
-                bpReadingAdapter.clear();
-                dailyBPReadings = daobpReading
-                        .listDailyReadings(readingFilter.getStartDate(), readingFilter.getEndDate());
-                bpReadingAdapter.setDailyBPReadings(dailyBPReadings);
-                bpReadingAdapter.notifyDataSetChanged();
-
-            } else if (readingFilter.getFilterType() == BPFILTERTYPE.WEEK ) {
-                //clear list
-                //query table for readings.
-                //update list in adapter.
-                //call notifyDataSetChanged()
-
-                bpReadingAdapter.clear();
-                dailyBPReadings = daobpReading
-                        .listDailyReadings(readingFilter.getStartDate(), readingFilter.getEndDate());
-                bpReadingAdapter.setDailyBPReadings(dailyBPReadings);
-                bpReadingAdapter.notifyDataSetChanged();
-
             } else if (readingFilter.getFilterType() == BPFILTERTYPE.CUSTOM ) {
 
                 bpReadingAdapter.clear();
@@ -133,10 +110,24 @@ public class ListBPReading extends AppCompatActivity  {
                 bpReadingAdapter.setDailyBPReadings(dailyBPReadings);
 
                 bpReadingAdapter.notifyDataSetChanged();
+            } else if (readingFilter.getFilterType() == BPFILTERTYPE.SPECIFIC ) {
+                //clear list
+                bpReadingAdapter.clear();
+                //query table for readings.
+                SimpleDateFormat sdf = new SimpleDateFormat(HMUtils.DATE_FORMAT);
+                String specificDate = sdf.format(readingFilter.getStartDate());
+
+                DailyBPReading dailyBPReading = daobpReading.getDailyReading(specificDate);
+                dailyBPReadings.addDailyBPReading(dailyBPReading);
+
+                //update list in adapter.
+                bpReadingAdapter.setDailyBPReadings(dailyBPReadings);
+
+                //call notifyDataSetChanged()
+                bpReadingAdapter.notifyDataSetChanged();
             } else {
                 //TODO: write to log.
-                Log.i("Health Monitor", "Error Processing filter");
-
+                Log.i(HMUtils.LOGTAG, "Error Processing filter");
             }
         }
     }

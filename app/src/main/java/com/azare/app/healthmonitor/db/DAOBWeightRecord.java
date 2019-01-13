@@ -26,7 +26,7 @@ public class DAOBWeightRecord extends DAOHealthMonitor {
 
         long insertId = db_writer.insert(HMDBtables.WeightRecordTbl.WEIGHT_RECORD_TABLE, null, cv);
 
-        boolean isInserted = insertId == -1;
+        boolean isInserted = insertId > -1? true : false;
 
         return isInserted;
     }
@@ -41,8 +41,8 @@ public class DAOBWeightRecord extends DAOHealthMonitor {
         List<WeightRecord> weightRecordlist = new ArrayList<WeightRecord>();
 
         Cursor cursor = db_reader.query(HMDBtables.WeightRecordTbl.WEIGHT_RECORD_TABLE,
-                HMDBtables.BPReadingTbl.ALL_COLUMNS, null,
-                null, null, null, null);
+                HMDBtables.WeightRecordTbl.ALL_COLUMNS, null,
+                null, null, null, HMDBtables.WeightRecordTbl.COL_TIMESTAMP + " ASC");
 
         cursor.moveToFirst();
 
@@ -51,7 +51,7 @@ public class DAOBWeightRecord extends DAOHealthMonitor {
             int iDay = cursor.getInt(1);
             int iMonth = cursor.getInt(2);
             int iYear = cursor.getInt(3);
-            int iWeight = cursor.getInt(4);
+            double iWeight = cursor.getDouble(4);
             long timestamp = cursor.getLong(5);
 
             weightRecordlist.add(new WeightRecord(iDay,iMonth,iYear,iWeight,timestamp));
@@ -63,4 +63,5 @@ public class DAOBWeightRecord extends DAOHealthMonitor {
 
         return weightRecordlist;
     }
+
 }

@@ -13,6 +13,7 @@ public class HMDBHelper extends SQLiteOpenHelper {
 
     private static final String TEXT_TYPE = " TEXT";
     private static final String INTEGER_TYPE = " INTEGER";
+    private static final String REAL_TYPE = " REAL";
     private static final String COL_NOT_NULL = " NOT NULL";
 
 
@@ -35,7 +36,7 @@ public class HMDBHelper extends SQLiteOpenHelper {
             + HMDBtables.WeightRecordTbl.COL_DAY + INTEGER_TYPE + COL_NOT_NULL + ", "
             + HMDBtables.WeightRecordTbl.COL_MONTH + INTEGER_TYPE + COL_NOT_NULL+ ", "
             + HMDBtables.WeightRecordTbl.COL_YEAR + INTEGER_TYPE + COL_NOT_NULL+ ", "
-            + HMDBtables.WeightRecordTbl.COL_WEIGHT + INTEGER_TYPE + COL_NOT_NULL+ ", "
+            + HMDBtables.WeightRecordTbl.COL_WEIGHT + REAL_TYPE + COL_NOT_NULL+ ", "
             + HMDBtables.BPReadingTbl.COL_TIMESTAMP + INTEGER_TYPE + COL_NOT_NULL + ")";
 
     private static final String DELETE_BP_READING_TABLE = "DROP TABLE IF EXISTS "

@@ -16,6 +16,8 @@ public class HMUtils {
     public static final String LOGTAG = "Health Monitor";
     public static final String DATE_SEPERATOR = "/";
 
+    public static final String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May",
+    "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     /*
     Generate a list containing a hourly timestamp for the given
     date and period.

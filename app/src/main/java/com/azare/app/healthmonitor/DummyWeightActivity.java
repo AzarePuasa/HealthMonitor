@@ -52,7 +52,6 @@ public class DummyWeightActivity extends AppCompatActivity {
                 if (allDummyWeight.size() > 0) {
                     //print weight Records
                     for ( WeightRecord record : allDummyWeight ) {
-                        Log.i(HMUtils.LOGTAG, record.toString());
                         daoWeightRecord.insert(record);
                     }
 
