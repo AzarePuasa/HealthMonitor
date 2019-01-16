@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.azare.app.healthmonitor.model.BPREADTYPE;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,9 +13,13 @@ import java.util.Random;
 public class HMUtils {
 
     public static final String DATE_FORMAT = "dd/MM/yyyy";
+    public static final String DATE_TIME_FORMAT = "dd/MM/yyyy HH:mm:ss";
+    public static final String DATE_TIME_FORMAT_NO_SEC = "dd/MM/yyyy HH:mm";
     public static final String LOGTAG = "Health Monitor";
     public static final String DATE_SEPERATOR = "/";
 
+    public static final String[] MONTHS = {"Jan", "Feb", "Mar", "Apr", "May",
+    "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     /*
     Generate a list containing a hourly timestamp for the given
     date and period.
@@ -75,11 +80,28 @@ public class HMUtils {
 
     public static String getCurrentTime(Date date) {
 
-        SimpleDateFormat dateformat = new SimpleDateFormat("hh:mm:ss aa");
+        SimpleDateFormat dateformat = new SimpleDateFormat("HH:mm:ss aa");
 
 
         String strTime = dateformat.format(date);
 
         return strTime;
+    }
+
+    public static Date strToDate(String strDate, SimpleDateFormat sdf) {
+
+        Date date = new Date();
+
+        try {
+            date = sdf.parse(strDate);
+        } catch (ParseException pex) {
+            Log.e(HMUtils.LOGTAG, "Fail to parse date");
+        }
+
+        return date;
+    }
+
+    public static Date getDateToday() {
+        return new Date(System.currentTimeMillis());
     }
 }

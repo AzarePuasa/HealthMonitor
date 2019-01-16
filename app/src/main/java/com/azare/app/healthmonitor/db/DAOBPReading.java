@@ -3,12 +3,9 @@ package com.azare.app.healthmonitor.db;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.azare.app.healthmonitor.DailyBPReading;
-import com.azare.app.healthmonitor.FilterBPActivity;
-import com.azare.app.healthmonitor.MainActivity;
 import com.azare.app.healthmonitor.model.AfternoonBPReading;
 import com.azare.app.healthmonitor.model.BPREADTYPE;
 import com.azare.app.healthmonitor.model.BPReading;
@@ -23,18 +20,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class DAOBPReading {
-
-    private SQLiteDatabase db_writer;
-    private SQLiteDatabase db_reader;
-
-    // Database fields
-    private HMDBHelper m_HMDBHelper;
+public class DAOBPReading extends DAOHealthMonitor{
 
     public DAOBPReading(Context context) {
-        m_HMDBHelper = HMDBHelper.getInstance(context);
-        db_writer = m_HMDBHelper.getWritableDatabase();
-        db_reader = m_HMDBHelper.getReadableDatabase();
+        super(context);
     }
 
     /*
@@ -42,7 +31,6 @@ public class DAOBPReading {
      */
     public boolean insert(BPReading bpReading) {
 
-        /*TODO: get month from the current date.*/
         // Create a new map of values, where column names are the keys
         ContentValues cv = new ContentValues();
         cv.put(HMDBtables.BPReadingTbl.COL_DAY, bpReading.getDay());
@@ -55,7 +43,7 @@ public class DAOBPReading {
 
         long insertId = db_writer.insert(HMDBtables.BPReadingTbl.BP_READING_TABLE, null, cv);
 
-        boolean isInserted = insertId == -1;
+        boolean isInserted = insertId > -1? true : false;
 
         return isInserted;
     }
@@ -162,7 +150,7 @@ public class DAOBPReading {
         DailyBPReading dailyBPReading = new DailyBPReading(strCurrentDate);
 
         int day = Integer.parseInt(strCurrentDate.split("/")[0]);
-        int month = Integer.parseInt(strCurrentDate.split("/")[1]) + 1;
+        int month = Integer.parseInt(strCurrentDate.split("/")[1]);
         int year = Integer.parseInt(strCurrentDate.split("/")[2]);
 
         Log.i("Health Monitor", "strCurrentDate: " + strCurrentDate );
@@ -298,5 +286,15 @@ public class DAOBPReading {
         //date must be less than current date.
 
         return new BPReading();
+    }
+
+    /**
+     * Check if there is a reading type for the specified date.
+     * @param strNewBPDate
+     * @param newBPReadtype
+     * @return
+     */
+    public boolean exist(String strNewBPDate, BPREADTYPE newBPReadtype) {
+        return false;
     }
 }

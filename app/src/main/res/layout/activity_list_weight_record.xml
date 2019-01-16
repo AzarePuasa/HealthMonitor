@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListBPReading"
+    tools:context=".ListWeightRecord"
     android:orientation="vertical">
 
     <LinearLayout
@@ -19,7 +19,7 @@
             android:layout_weight="1"
             android:background="#fff"
             android:padding="5dp"
-            android:src="@drawable/blood_pressure" />
+            android:src="@drawable/weightscale" />
 
         <TextView
             android:layout_width="match_parent"
@@ -31,48 +31,15 @@
             android:gravity="center_vertical|center"
             android:padding="0dp"
             android:paddingTop="0dp"
-            android:text="@string/listBP"
+            android:text="@string/listweighttitle"
             android:textSize="24sp"
             android:textStyle="bold" />
 
     </LinearLayout>
 
-    <!--<Button
-        android:id="@+id/btnGetAllReading"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/getallbpreading" />
-
-    <Button
-        android:id="@+id/btnAddBPReading"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/addBPReading" />
-
-    <Button
-        android:id="@+id/btnFilterBPReading"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/filterBPReading" /> -->
-
-    <TextView
-        android:id="@+id/tvFilterStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" />
-
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/allBPReading"
+        android:id="@+id/allWeightRecord"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
 </LinearLayout>

@@ -1,10 +1,9 @@
 package com.azare.app.healthmonitor.model;
 
 public enum BPFILTERTYPE {
-    ALL("Show All Reading"),
-    MONTH("Show Last 30 Days Reading"),
-    WEEK("Show Last 7 Days Reading"),
-    CUSTOM("Show Custom Period Reading");
+    NONE("Show All Reading"),
+    CUSTOM("Show Custom Period Reading"),
+    SPECIFIC("Show Specific Date Reading");
 
     String statusMsg;
 

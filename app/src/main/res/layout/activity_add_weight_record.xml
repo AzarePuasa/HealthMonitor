@@ -4,17 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddBPReading"
+    tools:context=".AddWeightRecord"
     android:orientation="vertical">
 
-    <TextView
+    <!--Title-->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="30dp"
-        android:text="@string/addbptitle"
-        android:textSize="30sp" />
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/titlepicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#fff"
+            android:padding="5dp"
+            android:src="@drawable/weightscale" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical|center"
+            android:padding="0dp"
+            android:paddingTop="0dp"
+            android:text="@string/addweighttitle"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <TableLayout
         android:layout_width="match_parent"
@@ -23,8 +45,8 @@
         android:layout_marginTop="15dp"
         android:layout_marginRight="30dp">
 
-        <TableRow>
 
+        <TableRow>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -32,63 +54,29 @@
                 android:text="@string/datelbl" />
 
             <TextView
-                android:id="@+id/tvNewBPDdate"
+                android:id="@+id/tvWeightDdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </TableRow>
 
         <TableRow>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:text="@string/typelbl" />
-
-            <TextView
-                android:id="@+id/tvNewBPType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="@string/systoliclbl" />
+                android:text="@string/weight" />
 
             <EditText
-                android:id="@+id/etNewSystolic"
+                android:id="@+id/etNewWeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="@string/systolichint"/>
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="@string/diastoliclbl" />
-
-            <EditText
-                android:id="@+id/etNewDiastolic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="@string/diastolichint" />
-
+                android:hint="@string/weighthint"/>
         </TableRow>
 
         <TableRow>
             <Button
-                android:id="@+id/btnAddBPReading"
+                android:id="@+id/btnSubmitWeight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"

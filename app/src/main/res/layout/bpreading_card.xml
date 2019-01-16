@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_margin="7dp"
-        android:id="@+id/cv">
+        android:id="@+id/bpcard">
 
         <TableLayout
             android:layout_width="match_parent"

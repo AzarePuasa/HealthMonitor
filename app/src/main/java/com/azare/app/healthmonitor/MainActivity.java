@@ -16,6 +16,7 @@ import com.azare.app.healthmonitor.utils.HMUtils;
 public class MainActivity extends AppCompatActivity {
 
     Button btnShowBPReading;
+    Button btnShowWeightRecord;
 
     ActionBar actionBar;
 
@@ -31,13 +32,17 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayOptions( ActionBar.DISPLAY_SHOW_HOME
                 | ActionBar.DISPLAY_SHOW_TITLE);
 
-        actionBar.setTitle("Health Monitor");
+        actionBar.setTitle(getTitle());
 
         Log.i(HMUtils.LOGTAG, DebugDB.getAddressLog());
 
         btnShowBPReading = (Button) findViewById(R.id.btnShowBPReading);
 
         btnShowBPReading.setOnClickListener(btnShowBPReadingClicked);
+
+        btnShowWeightRecord = (Button) findViewById(R.id.btnShowWeightRecords);
+
+        btnShowWeightRecord.setOnClickListener(btnShowWeightRecordClicked);
     }
 
     /*
@@ -52,6 +57,18 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    /*
+    Create intent and launch List BP Readings Activity.
+     */
+    private View.OnClickListener btnShowWeightRecordClicked = new View.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            Intent lvWeightsIntent = new Intent(MainActivity.this, ListWeightRecord.class);
+            startActivity(lvWeightsIntent);
+        }
+    };
+
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -62,11 +79,17 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.dummyBP:
-                //TODO: pass start and end date to activity.
                 Intent dummyBPIntent = new Intent(MainActivity.this, DummyBPActivity.class);
                 startActivity(dummyBPIntent);
 
                 return (true);
+
+            case R.id.dummyWeight:
+                Intent dummyWeight = new Intent(MainActivity.this, DummyWeightActivity.class);
+                startActivity(dummyWeight);
+
+                return (true);
+
         }
         return (super.onOptionsItemSelected(item));
     }

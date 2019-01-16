@@ -43,7 +43,6 @@ public class DummyBPActivity extends AppCompatActivity {
 
         btnClearDB.setOnClickListener(btnClearDBClicked);
 
-
         btnGetNormalBP.setOnClickListener(btnNormalBPClicked);
     }
 
@@ -81,8 +80,8 @@ public class DummyBPActivity extends AppCompatActivity {
     };
 
     /*
-Delete all entries in BP Readings Table.
- */
+    Delete all entries in BP Readings Table.
+     */
     private View.OnClickListener btnClearDBClicked = new View.OnClickListener(){
 
         @Override
@@ -110,8 +109,8 @@ Delete all entries in BP Readings Table.
     };
 
     /*
-Populate table for a specified start and end date.
-*/
+    Populate table for a specified start and end date.
+    */
     private void populateBPReadingTbl(List<BPReading> lBPReadings) {
         Log.i("Health Monitor", "Reading Count: " + lBPReadings.size());
 

@@ -16,7 +16,7 @@
     <string name="systolicplch">iSys</string>
     <string name="diastolicplc">iDia</string>
     <string name="addBPReading">Add BP Reading</string>
-    <string name="addbpintro">This is Add BP Reading Activity</string>
+    <string name="addbptitle">Add BP Reading</string>
     <string name="datelbl">Date:</string>
     <string name="typelbl">Type:</string>
     <string name="systoliclbl">Systolic:</string>
@@ -30,7 +30,21 @@
     <string name="filterMonth">Current Month</string>
     <string name="filterWeek">Current Week</string>
     <string name="filterCustom">Custom Period</string>
+    <string name="filterSpecific">Selected Date</string>
     <string name="customstartdatelbl">Start:</string>
     <string name="customenddatelbl">End:</string>
     <string name="customfilterbtn">Get Readings</string>
+    <string name="showweights">Show Weight Records</string>
+    <string name="listweighttitle">List Weight Record</string>
+    <string name="dummyweight">Generate Dummy Weight Records</string>
+    <string name="dummyweightinfo">This Activity Generates Dummy Weight Readings</string>
+    <string name="addWeightRecord">Add Weight Record</string>
+    <string name="addweighttitle">Add Weight Record</string>
+    <string name="weight">Weight</string>
+    <string name="weighthint">Weight</string>
+    <string name="homettitle">HOME</string>
+    <string name="successmsg">"Successfully inserted reading"</string>
+    <string name="specificdatelbl">Select Date</string>
+    <string name="listBP">List BP Reading</string>
+
 </resources>

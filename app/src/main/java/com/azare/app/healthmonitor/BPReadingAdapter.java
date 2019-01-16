@@ -89,7 +89,7 @@ public class BPReadingAdapter extends RecyclerView.Adapter<BPReadingAdapter.BPRe
         TextView tvAfternoonDiastolic;
         TextView tvEveningSystolic;
         TextView tvEveningDiastolic;
-        CardView cv;
+        CardView bpread;
 
 
         public BPReadingViewHolder(View view) {
@@ -106,7 +106,7 @@ public class BPReadingAdapter extends RecyclerView.Adapter<BPReadingAdapter.BPRe
             tvEveningSystolic = view.findViewById(R.id.tvEveningSys);
             tvEveningDiastolic = view.findViewById(R.id.tvEveningDia);
 
-            cv = (CardView) view.findViewById(R.id.cv);
+            bpread = (CardView) view.findViewById(R.id.bpcard);
         }
     }
 }
