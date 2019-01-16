@@ -8,7 +8,7 @@ public class HMDBHelper extends SQLiteOpenHelper {
 
     private static HMDBHelper sInstance = null;
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "HealthMon.db";
 
     private static final String TEXT_TYPE = " TEXT";
@@ -39,11 +39,27 @@ public class HMDBHelper extends SQLiteOpenHelper {
             + HMDBtables.WeightRecordTbl.COL_WEIGHT + REAL_TYPE + COL_NOT_NULL+ ", "
             + HMDBtables.BPReadingTbl.COL_TIMESTAMP + INTEGER_TYPE + COL_NOT_NULL + ")";
 
+    private static final String CREATE_APPT_RECORD_TABLE = "CREATE TABLE "
+            + HMDBtables.ApptRecordTbl.APPT_RECORD_TABLE
+            + "("
+            + HMDBtables.ApptRecordTbl.COL_APPT_ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT, "
+            + HMDBtables.ApptRecordTbl.COL_DAY + INTEGER_TYPE + COL_NOT_NULL + ", "
+            + HMDBtables.ApptRecordTbl.COL_MONTH + INTEGER_TYPE + COL_NOT_NULL+ ", "
+            + HMDBtables.ApptRecordTbl.COL_YEAR + INTEGER_TYPE + COL_NOT_NULL+ ", "
+            + HMDBtables.ApptRecordTbl.COL_HOUR + INTEGER_TYPE + COL_NOT_NULL+ ", "
+            + HMDBtables.ApptRecordTbl.COL_MINUTE + INTEGER_TYPE + COL_NOT_NULL+ ", "
+            + HMDBtables.ApptRecordTbl.COL_LOCATION + TEXT_TYPE + COL_NOT_NULL+ ", "
+            + HMDBtables.ApptRecordTbl.COL_PURPOSE + TEXT_TYPE + COL_NOT_NULL+ ", "
+            + HMDBtables.BPReadingTbl.COL_TIMESTAMP + INTEGER_TYPE + COL_NOT_NULL + ")";
+
     private static final String DELETE_BP_READING_TABLE = "DROP TABLE IF EXISTS "
             + HMDBtables.BPReadingTbl.BP_READING_TABLE;
 
     private static final String DELETE_WEIGHT_RECORD_TABLE = "DROP TABLE IF EXISTS "
             + HMDBtables.WeightRecordTbl.WEIGHT_RECORD_TABLE;
+
+    private static final String DELETE_APPT_RECORD_TABLE = "DROP TABLE IF EXISTS "
+            + HMDBtables.ApptRecordTbl.APPT_RECORD_TABLE;
 
     private HMDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
