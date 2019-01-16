@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.azare.app.healthmonitor.model.BPREADTYPE;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -78,11 +79,28 @@ public class HMUtils {
 
     public static String getCurrentTime(Date date) {
 
-        SimpleDateFormat dateformat = new SimpleDateFormat("hh:mm:ss aa");
+        SimpleDateFormat dateformat = new SimpleDateFormat("HH:mm:ss aa");
 
 
         String strTime = dateformat.format(date);
 
         return strTime;
+    }
+
+    public static Date strToDate(String strDate, SimpleDateFormat sdf) {
+
+        Date date = new Date();
+
+        try {
+            date = sdf.parse(strDate);
+        } catch (ParseException pex) {
+            Log.e(HMUtils.LOGTAG, "Fail to parse date");
+        }
+
+        return date;
+    }
+
+    public static Date getDateToday() {
+        return new Date(System.currentTimeMillis());
     }
 }

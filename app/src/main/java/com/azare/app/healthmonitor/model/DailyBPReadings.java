@@ -13,7 +13,7 @@ public class DailyBPReadings {
         lDailyReadings = new ArrayList<DailyBPReading>();
     }
 
-    private boolean createDailyReading(String strDate) {
+    public boolean createDailyReading(String strDate) {
         if (getDailyBPReading(strDate) == null) {
             return lDailyReadings.add(new DailyBPReading(strDate));
         }
@@ -24,7 +24,7 @@ public class DailyBPReadings {
         return false;
     }
 
-    private DailyBPReading getDailyBPReading(String strDate) {
+    public DailyBPReading getDailyBPReading(String strDate) {
         for (DailyBPReading dailyBPReading : lDailyReadings) {
             if(dailyBPReading.getDate().equals(strDate)) {
                 return dailyBPReading;

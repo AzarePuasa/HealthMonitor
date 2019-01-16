@@ -1,9 +1,10 @@
 package com.azare.app.healthmonitor.model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class BPReading {
+public class BPReading implements Serializable {
     private int m_iDay;
     private int m_iMonth;
     private int m_iYear;
@@ -99,6 +100,10 @@ public class BPReading {
 
     public int[] getReading() {
         return new int[]{m_iSystolic, m_iDiastolic};
+    }
+
+    public String getReadingDate() {
+        return this.m_iDay + "/" + this.m_iMonth + "/" + this.m_iYear;
     }
 
     public String toString() {

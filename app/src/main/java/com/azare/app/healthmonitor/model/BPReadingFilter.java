@@ -11,6 +11,8 @@ public class BPReadingFilter implements Serializable {
 
     public BPReadingFilter(BPFILTERTYPE filterType) {
         this.filterType = filterType;
+        this.dateStart = null;
+        this.dateEnd = null;
     }
 
     public BPReadingFilter(BPFILTERTYPE filterType,
@@ -40,7 +42,31 @@ public class BPReadingFilter implements Serializable {
         this.dateEnd = dateEnd;
     }
 
-    public void getFilterType(BPFILTERTYPE bpfiltertype) {
+    public void setFilterType(BPFILTERTYPE bpfiltertype) {
         this.filterType = bpfiltertype;
+    }
+
+    public boolean isValid() {
+        boolean valid = false;
+
+        if (this.filterType == BPFILTERTYPE.NONE) {
+            if (this.dateStart == null || this.dateEnd == null) {
+                valid = true;
+            }
+        }
+
+        if (this.filterType == BPFILTERTYPE.CUSTOM) {
+            if (this.dateStart != null || this.dateEnd != null) {
+                valid = true;
+            }
+        }
+
+        if (this.filterType == BPFILTERTYPE.SPECIFIC) {
+            if (this.dateStart != null || this.dateEnd == null) {
+                valid = true;
+            }
+        }
+
+        return valid;
     }
 }

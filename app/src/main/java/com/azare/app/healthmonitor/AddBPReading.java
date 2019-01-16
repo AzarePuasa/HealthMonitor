@@ -1,5 +1,6 @@
 package com.azare.app.healthmonitor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -7,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.azare.app.healthmonitor.db.DAOBPReading;
 import com.azare.app.healthmonitor.model.BPREADTYPE;
@@ -60,7 +60,7 @@ public class AddBPReading extends AppCompatActivity {
         String strTime = HMUtils.getCurrentTime(date);
         int hour = Integer.parseInt(strTime.split(":")[0]);
         Log.i("Health Monitor", "Hour: " + hour );
-        bpreadtype = BPREADTYPE.getCurrentReadType(hour + 12);
+        bpreadtype = BPREADTYPE.getCurrentReadType(hour);
         Log.i("Health Monitor", "Read Type: " + bpreadtype.name() );
 
         //Create date string and set TextView.
@@ -85,13 +85,16 @@ public class AddBPReading extends AppCompatActivity {
 
             BPReading bpReading = BPReadingFactory.createBPReading(iDay,iMth,iYear,iSystolic,iDiastolic,bpreadtype);
 
-            if ( daobpReading.insert(bpReading) ) {
-                String successMsg = getResources().getString(R.string.successmsg);
+            //create intent and send
+            Intent result = new Intent();
 
-                Log.i("Health Monitor", successMsg);
+            // Pass relevant data back as a result
+            result.putExtra("new", bpReading);
 
-                Toast.makeText(getApplicationContext(), successMsg, Toast.LENGTH_SHORT ).show();
-            }
+            // Activity finished ok, return the data
+            setResult(RESULT_OK, result); // set result code and bundle data for response
+
+            finish(); // closes the activity, pass data to parent
         }
     };
 }

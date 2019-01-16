@@ -263,7 +263,7 @@ public class FilterBPActivity extends AppCompatActivity {
         if (radioButtonFilter.getText()
                 .equals(getResources().getString(R.string.filterNone))) {
             // All reading.
-            BPReadingFilter readingFilter = new BPReadingFilter(BPFILTERTYPE.ALL);
+            BPReadingFilter readingFilter = new BPReadingFilter(BPFILTERTYPE.NONE);
             sendResult(readingFilter);
         } else if (radioButtonFilter.getText()
                 .equals(getResources().getString(R.string.filterCustom))) {

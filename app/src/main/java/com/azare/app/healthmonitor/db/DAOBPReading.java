@@ -287,4 +287,14 @@ public class DAOBPReading extends DAOHealthMonitor{
 
         return new BPReading();
     }
+
+    /**
+     * Check if there is a reading type for the specified date.
+     * @param strNewBPDate
+     * @param newBPReadtype
+     * @return
+     */
+    public boolean exist(String strNewBPDate, BPREADTYPE newBPReadtype) {
+        return false;
+    }
 }

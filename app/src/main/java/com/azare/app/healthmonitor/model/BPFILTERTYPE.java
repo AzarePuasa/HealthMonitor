@@ -1,7 +1,7 @@
 package com.azare.app.healthmonitor.model;
 
 public enum BPFILTERTYPE {
-    ALL("Show All Reading"),
+    NONE("Show All Reading"),
     CUSTOM("Show Custom Period Reading"),
     SPECIFIC("Show Specific Date Reading");
 

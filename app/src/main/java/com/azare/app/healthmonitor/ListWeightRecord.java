@@ -77,8 +77,6 @@ public class ListWeightRecord extends AppCompatActivity {
                 Intent addWeightIntent = new Intent(getApplicationContext(), AddWeightRecord.class);
                 startActivityForResult(addWeightIntent, REQUEST_NEW_WEIGHT_CODE);
 
-
-
                 return (true);
         }
         return true;
