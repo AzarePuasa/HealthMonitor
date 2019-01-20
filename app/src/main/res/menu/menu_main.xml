@@ -17,4 +17,10 @@
         android:title="@string/dummyweight"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/dummyAppointment"
+        android:icon="@android:drawable/ic_menu_my_calendar"
+        android:title="@string/dummyappointments"
+        app:showAsAction="never" />
+
 </menu>

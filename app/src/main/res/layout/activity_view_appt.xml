@@ -20,7 +20,7 @@
             android:layout_weight="1"
             android:background="#fff"
             android:padding="5dp"
-            android:src="@drawable/appointment" />
+            android:src="@drawable/weightscale" />
 
         <TextView
             android:layout_width="match_parent"
@@ -32,7 +32,7 @@
             android:gravity="center_vertical|center"
             android:padding="0dp"
             android:paddingTop="0dp"
-            android:text="@string/listBP"
+            android:text="@string/listAppointment"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -45,45 +45,64 @@
         android:layout_marginTop="15dp"
         android:layout_marginRight="30dp">
 
+        <!-- Date -->
+        <TableRow android:padding="10dp">
 
-        <TableRow>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="@string/datelbl" />
+                android:text="@string/datelbl"
+                android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/tvWeightDdate"
+                android:id="@+id/tvApptDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </TableRow>
 
-        <TableRow>
+        <!-- Time -->
+        <TableRow android:padding="10dp">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="@string/weight" />
+                android:text="@string/timeblb"
+                android:textSize="20sp" />
 
-            <EditText
-                android:id="@+id/etNewWeight"
+            <TextView
+                android:id="@+id/tvApptTime"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="@string/weighthint"/>
+                android:layout_height="wrap_content" />
         </TableRow>
 
-        <TableRow>
-            <Button
-                android:id="@+id/btnSubmitWeight"
+        <!-- Location -->
+        <TableRow android:padding="10dp">
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="15dp"
-                android:layout_gravity="right"
-                android:text="@string/submitbtnlbl" />
+                android:text="@string/locationlbl"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvApptLoc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </TableRow>
+
+        <!-- Purpose -->
+        <TableRow android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/purposelbl"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvApptPurpose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </TableRow>
 
     </TableLayout>

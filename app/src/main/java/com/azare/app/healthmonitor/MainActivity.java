@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnShowBPReading;
     Button btnShowWeightRecord;
+    Button btnShowApptRecord;
 
     ActionBar actionBar;
 
@@ -43,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
         btnShowWeightRecord = (Button) findViewById(R.id.btnShowWeightRecords);
 
         btnShowWeightRecord.setOnClickListener(btnShowWeightRecordClicked);
+
+        btnShowApptRecord = (Button) findViewById(R.id.btnAppointments);
+
+        btnShowApptRecord.setOnClickListener(btnShowApptRecordClicked);
     }
 
     /*
@@ -58,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     /*
-    Create intent and launch List BP Readings Activity.
+    Create intent and launch List Weight Activity.
      */
     private View.OnClickListener btnShowWeightRecordClicked = new View.OnClickListener(){
 
@@ -66,6 +71,18 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             Intent lvWeightsIntent = new Intent(MainActivity.this, ListWeightRecord.class);
             startActivity(lvWeightsIntent);
+        }
+    };
+
+    /*
+    Create intent and launch List Appointment Activity.
+     */
+    private View.OnClickListener btnShowApptRecordClicked = new View.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            Intent lvApptIntent = new Intent(MainActivity.this, ListAppointments.class);
+            startActivity(lvApptIntent);
         }
     };
 
@@ -87,6 +104,12 @@ public class MainActivity extends AppCompatActivity {
             case R.id.dummyWeight:
                 Intent dummyWeight = new Intent(MainActivity.this, DummyWeightActivity.class);
                 startActivity(dummyWeight);
+
+                return (true);
+
+            case R.id.dummyAppointment:
+                Intent dummyAppt = new Intent(MainActivity.this, DummyApptActivity.class);
+                startActivity(dummyAppt);
 
                 return (true);
 

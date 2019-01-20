@@ -78,6 +78,21 @@ public class HMUtils {
         return strDate;
     }
 
+    public static int[] getCurrentDateArr(Date date) {
+
+        SimpleDateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
+
+        String strDate = dateformat.format(date);
+
+        int[] iDate = new int[3];
+
+        iDate[0] = Integer.parseInt(strDate.split("/")[0]);
+        iDate[1] = Integer.parseInt(strDate.split("/")[1]);
+        iDate[2] = Integer.parseInt(strDate.split("/")[2]);
+
+        return iDate;
+    }
+
     public static String getCurrentTime(Date date) {
 
         SimpleDateFormat dateformat = new SimpleDateFormat("HH:mm:ss aa");

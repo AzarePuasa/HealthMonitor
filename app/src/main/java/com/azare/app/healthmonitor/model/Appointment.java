@@ -9,21 +9,31 @@ import java.util.Date;
 
 public class Appointment implements Serializable {
 
+    private long appt_id;
     private int m_iDay;
     private int m_iMonth;
     private int m_iYear;
-    private int m_iHour;
-    private int m_iMinutes;
+    private String m_strHour;
+    private String m_strMinutes;
     private String m_strLocation;
     private String m_strPurpose;
     private long m_Timestamp;
 
-    public Appointment(int iDay, int iMonth, int iYear, int iHour, int iMinutes) {
+    public Appointment(int iDay, int iMonth, int iYear, String strHour, String strMinutes) {
+        this.appt_id = -1;
         this.m_iDay = iDay;
         this.m_iMonth = iMonth;
         this.m_iYear = iYear;
-        this.m_iHour = iHour;
-        this.m_iMinutes = iMinutes;
+        this.m_strHour = strHour;
+        this.m_strMinutes = strMinutes;
+    }
+
+    public long getId() {
+        return this.appt_id;
+    }
+
+    public void setId(long appt_id) {
+        this.appt_id = appt_id;
     }
 
     public int getDay() {
@@ -50,20 +60,20 @@ public class Appointment implements Serializable {
         this.m_iYear = m_iYear;
     }
 
-    public int getHour() {
-        return m_iHour;
+    public String getHour() {
+        return m_strHour;
     }
 
-    public void setHour(int m_iHour) {
-        this.m_iHour = m_iHour;
+    public void setHour(String strHour) {
+        this.m_strHour = strHour;
     }
 
-    public int getMinutes() {
-        return m_iMinutes;
+    public String getMinutes() {
+        return m_strMinutes;
     }
 
-    public void setMinutes(int m_iMinutes) {
-        this.m_iMinutes = m_iMinutes;
+    public void setMinutes(String strMinutes) {
+        this.m_strMinutes = strMinutes;
     }
 
     public String getLocation() {
@@ -88,7 +98,7 @@ public class Appointment implements Serializable {
 
     public String getApptDateTimeString() {
         return this.m_iDay + "/" + this.m_iMonth + "/" + this.m_iYear +
-                " " + m_iHour + ":" + m_iMinutes;
+                " " + m_strHour + ":" + m_strMinutes;
     }
 
     public Date getApptDateTime() throws ParseException {
@@ -99,5 +109,21 @@ public class Appointment implements Serializable {
 
     public void setTimestamp(long m_Timestamp) {
         this.m_Timestamp = m_Timestamp;
+    }
+
+    public String toString() {
+        StringBuilder stbAppointment = new StringBuilder();
+
+        stbAppointment.append("\nDate/Time: ").append(getApptDateTimeString());
+
+        stbAppointment.append("\tPurpose: ").append(m_strPurpose);
+        stbAppointment.append("\tLocation: ").append(m_strLocation);
+
+        Date date = new Date(m_Timestamp);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+
+        stbAppointment.append("\tDate Created: ").append(sdf.format(date));
+
+        return stbAppointment.toString();
     }
 }

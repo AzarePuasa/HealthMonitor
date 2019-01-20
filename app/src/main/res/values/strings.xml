@@ -46,5 +46,16 @@
     <string name="successmsg">"Successfully inserted reading"</string>
     <string name="specificdatelbl">Select Date</string>
     <string name="listBP">List BP Reading</string>
+    <string name="showappts">Show Appointment Records</string>
+    <string name="dummyappointments">Generate Dummy Appointment Records</string>
+    <string name="dummyapptinfo">This Activity Generates Dummy Appointment</string>
+    <string name="listAppointment">List Appointments</string>
+    <string name="timeblb">Time</string>
+    <string name="locationlbl">Location</string>
+    <string name="purposelbl">Purpose</string>
 
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="fragapptcompleted">This is Completed Appointment</string>
+    <string name="fragapptupcoming">This is Upcoming Appointment</string>
 </resources>

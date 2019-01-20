@@ -22,7 +22,10 @@
         <activity android:name=".FilterBPActivity" />
         <activity android:name=".ListWeightRecord" />
         <activity android:name=".DummyWeightActivity" />
-        <activity android:name=".AddWeightRecord"></activity>
+        <activity android:name=".AddWeightRecord" />
+        <activity android:name=".ListAppointments" />
+        <activity android:name=".DummyApptActivity" />
+        <activity android:name=".ViewApptActivity"></activity>
     </application>
 
 </manifest>
