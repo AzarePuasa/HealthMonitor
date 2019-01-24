@@ -1,5 +1,6 @@
 package com.azare.app.healthmonitor;
 
+import com.azare.app.healthmonitor.model.ApptLocations;
 import com.azare.app.healthmonitor.model.Appointment;
 import com.azare.app.healthmonitor.utils.HMUtils;
 
@@ -17,21 +18,6 @@ public class DummyAppointments implements IDummyReading {
 
     public static String[] dummyPurpose = new String[]{"Routine Checkup", "Glucose Level Review", "Eye Checkup",
             "Blood Pressure Review", "Specialist Doctor Appointment", "Collect Medicine Supplies"};;
-
-    enum APPTLOCATIONS {
-        SGH("Singapore General Hospital"),
-        NUH("National University Hospital"),
-        NTFH("Ng Teng Fong Hospital"),
-        KTPH("Khoo Teck Phuat Hospital"),
-        JRP("Jurong Polyclinic"),
-        BBP("Bukit Batok Polyclinic");
-
-        private String full;
-
-        APPTLOCATIONS(String full) {
-            this.full = full;
-        }
-    }
 
     public DummyAppointments () {
         lAppointments_completed = new ArrayList<Appointment>();
@@ -122,7 +108,7 @@ public class DummyAppointments implements IDummyReading {
     }
 
     private String generateRamdomLocation(int random) {
-        APPTLOCATIONS[] locations = APPTLOCATIONS.values();
+        ApptLocations[] locations = ApptLocations.values();
 
         if (random < locations.length) {
             return locations[random].name();

@@ -35,7 +35,6 @@ public class ListWeightRecord extends AppCompatActivity {
 
     List<WeightRecord> lWeightRecords;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

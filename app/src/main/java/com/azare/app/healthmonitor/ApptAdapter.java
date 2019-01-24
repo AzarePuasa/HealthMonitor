@@ -24,6 +24,14 @@ public class ApptAdapter extends RecyclerView.Adapter<ApptAdapter.ApptViewHolder
         this.lAppointments = lAppointments;
     }
 
+    public void clear() {
+        this.lAppointments.clear();
+    }
+
+    public void setAppointments(List<Appointment> lAppointments) {
+        this.lAppointments = lAppointments;
+    }
+
     @NonNull
     @Override
     public ApptAdapter.ApptViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

@@ -53,6 +53,10 @@
     <string name="timeblb">Time</string>
     <string name="locationlbl">Location</string>
     <string name="purposelbl">Purpose</string>
+    <string name="timelbl">Select Time</string>
+    <string name="apptpurposehint">Purpose of Appointment</string>
+    <string name="addAppointment">Add Appointment</string>
+    <string name="saveAppointment">Save Appointment</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

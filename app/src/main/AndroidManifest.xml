@@ -25,7 +25,8 @@
         <activity android:name=".AddWeightRecord" />
         <activity android:name=".ListAppointments" />
         <activity android:name=".DummyApptActivity" />
-        <activity android:name=".ViewApptActivity"></activity>
+        <activity android:name=".ViewApptActivity" />
+        <activity android:name=".AddApptActivity"></activity>
     </application>
 
 </manifest>

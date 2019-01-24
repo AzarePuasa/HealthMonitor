@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.azare.app.healthmonitor.db.DAOApptRecord;
 import com.azare.app.healthmonitor.model.Appointment;
@@ -31,6 +30,11 @@ public class ApptCompletedFrag extends Fragment {
 
     public ApptCompletedFrag() {
         // Required empty public constructor
+    }
+
+    public static ApptCompletedFrag newInstance()
+    {
+        return new ApptCompletedFrag();
     }
 
     @Override

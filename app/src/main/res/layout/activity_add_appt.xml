@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddWeightRecord"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".AddApptActivity">
 
-    <!--Title-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +34,6 @@
             android:text="@string/listAppointment"
             android:textSize="24sp"
             android:textStyle="bold" />
-
     </LinearLayout>
 
     <TableLayout
@@ -54,10 +52,20 @@
                 android:text="@string/datelbl"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tvApptDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/etApptDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:layout_weight="2"
+                android:ems="10"/>
+
+            <Button
+                android:id="@+id/btnApptDatePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/specificdatelbl" />
         </TableRow>
 
         <!-- Time -->
@@ -69,10 +77,20 @@
                 android:text="@string/timeblb"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tvApptTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/etApptTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:layout_weight="2"
+                android:ems="10"/>
+
+            <Button
+                android:id="@+id/btnApptTimePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/timelbl" />
         </TableRow>
 
         <!-- Location -->
@@ -84,10 +102,11 @@
                 android:text="@string/locationlbl"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tvApptLoc"
+            <Spinner
+                android:id="@+id/spinnerApptLoc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
         </TableRow>
 
         <!-- Purpose -->
@@ -99,12 +118,25 @@
                 android:text="@string/purposelbl"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tvApptPurpose"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/etApptPurpose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:lines="2"
+                android:maxLines="2"
+                android:singleLine="false"
+                android:autofillHints="@string/apptpurposehint"/>
         </TableRow>
 
-    </TableLayout>
+        <TableRow android:gravity="center">
 
+            <Button
+                android:id="@+id/btnSubmitAppt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/submitbtnlbl" />
+        </TableRow>
+    </TableLayout>
 </LinearLayout>
