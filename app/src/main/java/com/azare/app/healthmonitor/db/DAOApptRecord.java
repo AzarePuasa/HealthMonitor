@@ -169,4 +169,34 @@ public class DAOApptRecord extends DAOHealthMonitor {
         return db_writer.delete(HMDBtables.ApptRecordTbl.APPT_RECORD_TABLE,
                 null, null);
     }
+
+    public boolean update(long id, Appointment appointment) {
+
+        ContentValues cv = new ContentValues();
+
+        cv.put(HMDBtables.ApptRecordTbl.COL_DAY, appointment.getDay());
+        cv.put(HMDBtables.ApptRecordTbl.COL_MONTH, appointment.getMonth());
+        cv.put(HMDBtables.ApptRecordTbl.COL_YEAR, appointment.getYear());
+        cv.put(HMDBtables.ApptRecordTbl.COL_HOUR, appointment.getHour());
+        cv.put(HMDBtables.ApptRecordTbl.COL_MINUTE, appointment.getMinutes());
+        cv.put(HMDBtables.ApptRecordTbl.COL_PURPOSE, appointment.getPurpose());
+        cv.put(HMDBtables.ApptRecordTbl.COL_LOCATION, appointment.getLocation());
+        cv.put(HMDBtables.ApptRecordTbl.COL_TIMESTAMP, appointment.getTimestamp());
+
+        String whereClause = HMDBtables.ApptRecordTbl.COL_APPT_ID + "=?";
+        String[] args = new String[]{Long.toString(id)};
+
+        int update = db_writer.update(HMDBtables.ApptRecordTbl.APPT_RECORD_TABLE, cv, whereClause, args);
+
+        return update == 1;
+    }
+
+    public boolean delete(long id) {
+        String whereClause = HMDBtables.ApptRecordTbl.COL_APPT_ID + "=?";
+        String[] args = new String[]{Long.toString(id)};
+
+        int delete = db_writer.delete(HMDBtables.ApptRecordTbl.APPT_RECORD_TABLE, whereClause, args);
+
+        return delete == 1;
+    }
 }

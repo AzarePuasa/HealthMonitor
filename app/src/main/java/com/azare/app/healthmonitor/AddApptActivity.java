@@ -19,8 +19,11 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.azare.app.healthmonitor.db.DAOApptRecord;
 import com.azare.app.healthmonitor.model.Appointment;
 import com.azare.app.healthmonitor.model.ApptLocations;
 import com.azare.app.healthmonitor.utils.HMUtils;
@@ -43,10 +46,25 @@ public class AddApptActivity extends AppCompatActivity {
     //multiline edit text.
     EditText etApptPurpose;
 
+    //Textview
+    TextView tvTitle;
+
+    public enum FormMode {
+        ADD, EDIT;
+    }
+
+    FormMode formMode;
+
+    DAOApptRecord daoApptRecord;
+
+    long m_ApptId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_appt);
+
+        daoApptRecord = new DAOApptRecord(this);
 
         //button
         btnApptDatePicker = (Button) findViewById(R.id.btnApptDatePicker);
@@ -62,6 +80,8 @@ public class AddApptActivity extends AppCompatActivity {
         //multiline edit text.
         etApptPurpose = (EditText) findViewById(R.id.etApptPurpose);
 
+        tvTitle = (TextView) findViewById(R.id.title);
+
         btnApptDatePicker.setOnClickListener(btnApptDatePickerClicked);
         btnApptTimePicker.setOnClickListener(btnApptTimePickerClicked);
 
@@ -70,6 +90,42 @@ public class AddApptActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, ApptLocations.values());
 
         spinnerApptLoc.setAdapter(locations);
+
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+            m_ApptId = extras.getLong("apptId",-1);
+
+            if (m_ApptId > -1) {
+                formMode =  FormMode.EDIT;
+                populateFields(m_ApptId);
+                tvTitle.setText(getResources().getText(R.string.editAppointment));
+            }
+        } else {
+            formMode =  FormMode.ADD;
+            tvTitle.setText(getResources().getText(R.string.addAppointment));
+        }
+    }
+
+    private void populateFields(long id) {
+        //get the apptEdit
+        Appointment apptEdit = daoApptRecord.getApptById(id);
+
+        etApptDate.setText(apptEdit.getDay() + "/" + apptEdit.getMonth() + "/" + apptEdit.getYear());
+
+        etApptTime.setText(apptEdit.getHour() + ":" + apptEdit.getMinutes());
+
+        int pos = 0;
+        for (ApptLocations loc : ApptLocations.values()) {
+            if (loc.name().equals(apptEdit.getLocation())) {
+                break;
+            }
+            pos++;
+        }
+
+        spinnerApptLoc.setSelection(pos);
+
+        etApptPurpose.setText(apptEdit.getPurpose());
     }
 
     private View.OnClickListener btnApptDatePickerClicked = new View.OnClickListener() {
@@ -169,7 +225,7 @@ public class AddApptActivity extends AppCompatActivity {
                 String strHour = strTime.split(":")[0];
                 String strMinutes = strTime.split(":")[1];
 
-                Appointment appointment = new Appointment(iDay, iMonth, iYear, strHour, strMinutes );
+                Appointment appointment = new Appointment(iDay, iMonth, iYear, strHour, strMinutes);
 
                 appointment.setLocation(strLocation);
 
@@ -179,17 +235,50 @@ public class AddApptActivity extends AppCompatActivity {
 
                 Log.i(HMUtils.LOGTAG, appointment.toString());
 
-                Intent result = new Intent();
+                //Edit to be processed here.
 
-                // Pass relevant data back as a result
-                result.putExtra("new", appointment);
+                //Add to be send back.
+                if (formMode == FormMode.EDIT) {
 
-                // Activity finished ok, return the data
-                setResult(RESULT_OK, result); // set result code and bundle data for response
+                    if (m_ApptId > -1) {
+                        //update appointment
+                        if(daoApptRecord.update(m_ApptId,appointment)) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Update Success",Toast.LENGTH_LONG).show();
 
-                finish(); // closes the activity, pass data to parent
+                            ApptPagerAdapter apptPagerAdapter = ApptPagerAdapter.getInstance();
 
-                return (true);
+                            ApptUpcomingFrag frag = (ApptUpcomingFrag) apptPagerAdapter.getItem(1);
+
+                            frag.updateList();
+
+                            finish();
+                        } else {
+                            //Toast fail.
+                            Toast.makeText(getApplicationContext(),
+                                    "Update Fail",Toast.LENGTH_LONG).show();
+                        }
+                    } else {
+                        //Toast Error.
+                        Toast.makeText(getApplicationContext(),
+                                "Invalid id to update",Toast.LENGTH_LONG).show();
+                    }
+
+                } else {
+                    Intent result = new Intent();
+
+                    // Pass relevant data back as a result
+                    result.putExtra("id", m_ApptId); //-1 for new Appt
+
+                    result.putExtra("appt", appointment);
+
+                    // Activity finished ok, return the data
+                    setResult(RESULT_OK, result); // set result code and bundle data for response
+
+                    finish(); // closes the activity, pass data to parent
+
+                    return (true);
+                }
         }
         return true;
     }

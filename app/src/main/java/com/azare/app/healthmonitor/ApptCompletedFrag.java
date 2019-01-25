@@ -49,7 +49,7 @@ public class ApptCompletedFrag extends Fragment {
 
         Log.i(HMUtils.LOGTAG, "Number of items:" + lCompletedAppts.size());
 
-        apptAdapter = new ApptAdapter(lCompletedAppts);
+        apptAdapter = new ApptAdapter(lCompletedAppts, false);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 

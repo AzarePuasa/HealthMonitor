@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,7 +19,8 @@ import com.azare.app.healthmonitor.utils.HMUtils;
 
 public class ListAppointments extends AppCompatActivity {
 
-    private final int REQUEST_NEW_APPT_CODE = 30;
+    public final int REQUEST_NEW_APPT_CODE = 30;
+    public static final int REQUEST_EDIT_APPT_CODE = 40;
 
     Toolbar toolbar;
     TabLayout tabLayout;
@@ -68,7 +68,7 @@ public class ListAppointments extends AppCompatActivity {
 
     private void setupViewPagerAdapter(ViewPager viewPager)
     {
-        apptPagerAdapter = new ApptPagerAdapter(getSupportFragmentManager());
+        apptPagerAdapter = ApptPagerAdapter.initialize(getSupportFragmentManager());
 
         //order is very important here; they correspond to the tab position from left to right
         apptPagerAdapter.addFragment(ApptCompletedFrag.newInstance(), "Completed Appointments");
@@ -102,19 +102,19 @@ public class ListAppointments extends AppCompatActivity {
 
         //result of create new appt
         if (resultCode == RESULT_OK && requestCode == REQUEST_NEW_APPT_CODE) {
-            Appointment appointment = (Appointment) data.getSerializableExtra("new");
+            Appointment appointment = (Appointment) data.getSerializableExtra("appt");
+            long id = data.getLongExtra("id", -1);
 
+            //Add new Appointment
             if (daoApptRecord.insert(appointment)) {
                 String successMsg = getResources().getString(R.string.successmsg);
                 Log.i(HMUtils.LOGTAG, successMsg);
 
-                Toast.makeText(getApplicationContext(), successMsg, Toast.LENGTH_SHORT ).show();
+                Toast.makeText(getApplicationContext(), successMsg, Toast.LENGTH_SHORT).show();
 
                 ApptUpcomingFrag frag = (ApptUpcomingFrag) apptPagerAdapter.getItem(1);
 
                 frag.updateList();
-
-
             }
         }
     }

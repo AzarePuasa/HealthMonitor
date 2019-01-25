@@ -12,8 +12,22 @@ public class ApptPagerAdapter extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
-    ApptPagerAdapter(FragmentManager fm) {
+    public static ApptPagerAdapter instance = null;
+
+    private ApptPagerAdapter(FragmentManager fm) {
         super(fm);
+    }
+
+    public static ApptPagerAdapter initialize(FragmentManager fm) {
+        if (instance == null) {
+            instance = new ApptPagerAdapter(fm);
+        }
+
+        return instance;
+    }
+
+    public static ApptPagerAdapter getInstance() {
+        return instance;
     }
 
     @Override

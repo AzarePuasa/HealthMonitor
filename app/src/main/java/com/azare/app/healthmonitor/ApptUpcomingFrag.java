@@ -46,7 +46,7 @@ public class ApptUpcomingFrag extends Fragment {
         Log.i(HMUtils.LOGTAG, "Number of items:" + lUpcomingAppts.size());
 
         //update list in adapter.
-        apptAdapter = new ApptAdapter(lUpcomingAppts);
+        apptAdapter = new ApptAdapter(lUpcomingAppts, true);
 
         Log.e(HMUtils.LOGTAG, "OnCreate End");
     }
@@ -92,10 +92,13 @@ public class ApptUpcomingFrag extends Fragment {
 
     public void updateList()
     {
+        Log.e(HMUtils.LOGTAG,"updateList Start");
         //query table for readings.
         lUpcomingAppts = apptRecord.listUpcomingAppt();
 
-        apptAdapter = new ApptAdapter(lUpcomingAppts);
+        apptAdapter = new ApptAdapter(lUpcomingAppts,true);
         recyclerView.setAdapter(apptAdapter);
+
+        Log.e(HMUtils.LOGTAG,"updateList End");
     }
 }

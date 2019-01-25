@@ -57,6 +57,7 @@
     <string name="apptpurposehint">Purpose of Appointment</string>
     <string name="addAppointment">Add Appointment</string>
     <string name="saveAppointment">Save Appointment</string>
+    <string name="editAppointment">Edit Appointment</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
