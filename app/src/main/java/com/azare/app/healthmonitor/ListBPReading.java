@@ -294,12 +294,21 @@ public class ListBPReading extends AppCompatActivity  {
                 startActivityForResult(bpFilterIntent, REQUEST_FILTER_CODE);
 
                 return (true);
+            case R.id.bpreminder:
+                Intent bpReminderIntent = new Intent(getApplicationContext(), BPReminderActivity.class);
+
+                startActivity(bpReminderIntent);
+
+                return (true);
             case R.id.printToConsole:
                 DailyBPReadings dailyBPReadings = daobpReading.listAll();
 
                 Log.i("Health Monitor", dailyBPReadings.toString());
 
                 return (true);
+
+
+
         }
         return (super.onOptionsItemSelected(item));
     }

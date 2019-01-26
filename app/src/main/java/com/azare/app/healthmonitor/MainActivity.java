@@ -113,6 +113,12 @@ public class MainActivity extends AppCompatActivity {
 
                 return (true);
 
+            case R.id.dummyReminder:
+                Intent reminder = new Intent(MainActivity.this, DummyReminder.class);
+                startActivity(reminder);
+
+                return (true);
+
         }
         return (super.onOptionsItemSelected(item));
     }

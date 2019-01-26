@@ -58,9 +58,29 @@
     <string name="addAppointment">Add Appointment</string>
     <string name="saveAppointment">Save Appointment</string>
     <string name="editAppointment">Edit Appointment</string>
+    <string name="dummyreminder">Generate Dummy Reminder</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="fragapptcompleted">This is Completed Appointment</string>
     <string name="fragapptupcoming">This is Upcoming Appointment</string>
+
+
+    <!-- Alarm -->
+    <string name="stop_alarm">Stop Alarm</string>
+    <string name="start_alarm">Start Alarm</string>
+    <string name="edit_text_hint">Input your Alarm time</string>
+    <string name="hours">Hours</string>
+    <string name="minutes">Minutes</string>
+    <string name="seconds">Seconds</string>
+    <string name="label">Select your Alarm input type from below:</string>
+
+
+    <!-- BP Reminder -->
+    <string name="morbpreminder">Morning Reminder</string>
+    <string name="aftbpreminder">Afternoon Reminder</string>
+    <string name="evebpreminder">Evening Reminder</string>
+    <string name="saveReminder">Save BP Reminder</string>
+    <string name="setreminder">Set Reminder</string>
+
 </resources>

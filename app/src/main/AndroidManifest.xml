@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.azare.app.healthmonitor">
 
+    <!-- Permission required to Waking Lock if device screen is off -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,7 +29,23 @@
         <activity android:name=".ListAppointments" />
         <activity android:name=".DummyApptActivity" />
         <activity android:name=".ViewApptActivity" />
-        <activity android:name=".AddApptActivity"></activity>
+        <activity android:name=".AddApptActivity" />
+        <activity android:name=".DummyReminder" />
+
+        <receiver
+            android:name=".AlarmReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name=".AlarmSoundService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".AlarmNotificationService"
+            android:exported="false" />
+
+        <activity android:name=".BPReminderActivity"></activity>
     </application>
 
 </manifest>

@@ -130,14 +130,5 @@
                 android:singleLine="false"
                 android:autofillHints="@string/apptpurposehint"/>
         </TableRow>
-
-        <TableRow android:gravity="center">
-
-            <Button
-                android:id="@+id/btnSubmitAppt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/submitbtnlbl" />
-        </TableRow>
     </TableLayout>
 </LinearLayout>

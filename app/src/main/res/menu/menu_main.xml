@@ -23,4 +23,10 @@
         android:title="@string/dummyappointments"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/dummyReminder"
+        android:icon="@android:drawable/ic_menu_my_calendar"
+        android:title="@string/dummyreminder"
+        app:showAsAction="never" />
+
 </menu>
