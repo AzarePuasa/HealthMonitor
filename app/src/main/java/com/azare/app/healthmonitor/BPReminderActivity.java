@@ -1,5 +1,9 @@
 package com.azare.app.healthmonitor;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,10 +12,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.azare.app.healthmonitor.model.BPREADTYPE;
 import com.azare.app.healthmonitor.model.BPReadingReminders;
+import com.azare.app.healthmonitor.utils.BPAfternoonAlarm;
+import com.azare.app.healthmonitor.utils.BPEveningAlarm;
+import com.azare.app.healthmonitor.utils.BPMorningAlarm;
 import com.azare.app.healthmonitor.utils.HMUtils;
+
+import java.util.Calendar;
 
 public class BPReminderActivity extends AppCompatActivity {
 
@@ -32,7 +42,6 @@ public class BPReminderActivity extends AppCompatActivity {
         spinnerMorRem = (Spinner) findViewById(R.id.spinnerMorRem);
         spinnerAftRem = (Spinner) findViewById(R.id.spinnerAftRem);
         spinnerEveRem = (Spinner) findViewById(R.id.spinnerEveRem);
-
 
         //populate spinner.
         ArrayAdapter<String> aaMorningSpinner = new ArrayAdapter<String>(this,
@@ -158,7 +167,7 @@ public class BPReminderActivity extends AppCompatActivity {
                 // get values from spinners.
                 String strMorReminder = spinnerMorRem.getSelectedItem().toString();
                 String strAftReminder = spinnerAftRem.getSelectedItem().toString();
-                String srtEveReminder = spinnerEveRem.getSelectedItem().toString();
+                String strEveReminder = spinnerEveRem.getSelectedItem().toString();
 
                 SharedPreferences pref = this.getSharedPreferences(PREFFILE,MODE_PRIVATE);
 
@@ -167,17 +176,89 @@ public class BPReminderActivity extends AppCompatActivity {
 
                 writer.putString(BPREADTYPE.MORNING.name(),strMorReminder);
                 writer.putString(BPREADTYPE.AFTERNOON.name(),strAftReminder);
-                writer.putString(BPREADTYPE.EVENING.name(),srtEveReminder);
+                writer.putString(BPREADTYPE.EVENING.name(),strEveReminder);
 
                 // writer to shared preferences.
                 writer.commit();
                 // and create alarm manager.
+
+                //get time for morning, afternoon and evening
+                setAlarm(BPREADTYPE.MORNING,strMorReminder);
+                setAlarm(BPREADTYPE.AFTERNOON,strAftReminder);
+                setAlarm(BPREADTYPE.EVENING,strEveReminder);
+
                 finish();
 
                 break;
         }
 
         return true;
+    }
+
+    private void setAlarm(BPREADTYPE type, String iReminderTime) {
+
+        int iHour = Integer.parseInt(iReminderTime.split(":")[0]);
+        int iMinute = Integer.parseInt(iReminderTime.split(":")[1]);
+
+        Log.i(HMUtils.LOGTAG, "Hour:" + iHour + "iMinutes: " + iMinute);
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH), iHour, iMinute, 0);
+
+        long time = calendar.getTimeInMillis();
+
+        //getting the alarm manager
+        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        if ( type == BPREADTYPE.MORNING ) {
+            setAlarmMorning(am,time);
+        }
+
+        if ( type == BPREADTYPE.AFTERNOON ) {
+            setAlarmAfternoon(am,time);
+        }
+
+        if ( type == BPREADTYPE.EVENING ) {
+            setAlarmEvening(am,time);
+        }
+    }
+
+    private void setAlarmMorning(AlarmManager am, long time) {
+        //creating a new intent specifying the broadcast receiver
+        Intent morningAlarm = new Intent(this, BPMorningAlarm.class);
+
+        //creating a pending intent using the intent
+        PendingIntent piMorning = PendingIntent.getBroadcast(this, 0, morningAlarm, 0);
+
+        //setting the repeating alarm that will be fired every day
+        am.setRepeating(AlarmManager.RTC, time, AlarmManager.INTERVAL_DAY, piMorning);
+        Toast.makeText(this, "Alarm is for morning", Toast.LENGTH_SHORT).show();
+    }
+
+    private void setAlarmAfternoon(AlarmManager am, long time) {
+        //creating a new intent specifying the broadcast receiver
+        Intent AfternoonAlarm = new Intent(this, BPAfternoonAlarm.class);
+
+        //creating a pending intent using the intent
+        PendingIntent piAfternoon = PendingIntent.getBroadcast(this, 0, AfternoonAlarm, 0);
+
+        //setting the repeating alarm that will be fired every day
+        am.setRepeating(AlarmManager.RTC, time, AlarmManager.INTERVAL_DAY, piAfternoon);
+        Toast.makeText(this, "Alarm is for Afternoon", Toast.LENGTH_SHORT).show();
+    }
+
+    private void setAlarmEvening(AlarmManager am, long time) {
+        //creating a new intent specifying the broadcast receiver
+        Intent EveningAlarm = new Intent(this, BPEveningAlarm.class);
+
+        //creating a pending intent using the intent
+        PendingIntent piEvening = PendingIntent.getBroadcast(this, 0, EveningAlarm, 0);
+
+        //setting the repeating alarm that will be fired every day
+        am.setRepeating(AlarmManager.RTC, time, AlarmManager.INTERVAL_DAY, piEvening);
+        Toast.makeText(this, "Alarm is for Evening", Toast.LENGTH_SHORT).show();
     }
 
 }

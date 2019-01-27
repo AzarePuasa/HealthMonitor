@@ -12,6 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
+        <receiver
+            android:name=".utils.BPEveningAlarm"
+            android:enabled="true"
+            android:exported="true"></receiver>
+        <receiver
+            android:name=".BPAfternoonAlarm"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".utils.BPMorningAlarm"
+            android:enabled="true"
+            android:exported="true" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,7 +58,7 @@
             android:name=".AlarmNotificationService"
             android:exported="false" />
 
-        <activity android:name=".BPReminderActivity"></activity>
+        <activity android:name=".BPReminderActivity" />
     </application>
 
 </manifest>
