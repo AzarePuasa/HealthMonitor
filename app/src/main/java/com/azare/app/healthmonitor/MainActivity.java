@@ -4,22 +4,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.amitshekhar.DebugDB;
+import com.azare.app.healthmonitor.model.HomeItem;
 import com.azare.app.healthmonitor.utils.HMUtils;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
-    Button btnShowBPReading;
-    Button btnShowWeightRecord;
-    Button btnShowApptRecord;
+public class MainActivity extends AppCompatActivity  implements HomeViewAdapter.ItemListener {
 
     ActionBar actionBar;
+    RecyclerView recyclerView;
+    ArrayList<HomeItem> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,54 +41,34 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i(HMUtils.LOGTAG, DebugDB.getAddressLog());
 
-        btnShowBPReading = (Button) findViewById(R.id.btnShowBPReading);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        arrayList = new ArrayList<HomeItem>();
+        arrayList.add(new HomeItem("Blood Pressure", R.drawable.bpreading, "#09A9FF"));
+        arrayList.add(new HomeItem("Weight", R.drawable.weightrecord, "#3E51B1"));
+        arrayList.add(new HomeItem("Appointment", R.drawable.appt, "#673BB7"));
 
-        btnShowBPReading.setOnClickListener(btnShowBPReadingClicked);
+        HomeViewAdapter adapter = new HomeViewAdapter(this, arrayList, this);
+        recyclerView.setAdapter(adapter);
 
-        btnShowWeightRecord = (Button) findViewById(R.id.btnShowWeightRecords);
 
-        btnShowWeightRecord.setOnClickListener(btnShowWeightRecordClicked);
+        /**
+         AutoFitGridLayoutManager that auto fits the cells by the column width defined.
+         **/
 
-        btnShowApptRecord = (Button) findViewById(R.id.btnAppointments);
+        /*AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager(this, 500);
+        recyclerView.setLayoutManager(layoutManager);*/
 
-        btnShowApptRecord.setOnClickListener(btnShowApptRecordClicked);
+
+        /**
+         Simple GridLayoutManager that spans two columns
+         **/
+        GridLayoutManager manager = new GridLayoutManager(this, 2,
+                GridLayoutManager.VERTICAL, false);
+
+        recyclerView.setLayoutManager(manager);
+
+
     }
-
-    /*
-    Create intent and launch List BP Readings Activity.
-     */
-    private View.OnClickListener btnShowBPReadingClicked = new View.OnClickListener(){
-
-        @Override
-        public void onClick(View v) {
-            Intent lvBPReadingIntent = new Intent(MainActivity.this, ListBPReading.class);
-            startActivity(lvBPReadingIntent);
-        }
-    };
-
-    /*
-    Create intent and launch List Weight Activity.
-     */
-    private View.OnClickListener btnShowWeightRecordClicked = new View.OnClickListener(){
-
-        @Override
-        public void onClick(View v) {
-            Intent lvWeightsIntent = new Intent(MainActivity.this, ListWeightRecord.class);
-            startActivity(lvWeightsIntent);
-        }
-    };
-
-    /*
-    Create intent and launch List Appointment Activity.
-     */
-    private View.OnClickListener btnShowApptRecordClicked = new View.OnClickListener(){
-
-        @Override
-        public void onClick(View v) {
-            Intent lvApptIntent = new Intent(MainActivity.this, ListAppointments.class);
-            startActivity(lvApptIntent);
-        }
-    };
 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -121,5 +105,25 @@ public class MainActivity extends AppCompatActivity {
 
         }
         return (super.onOptionsItemSelected(item));
+    }
+
+    @Override
+    public void onItemClick(HomeItem item) {
+        Toast.makeText(getApplicationContext(), item.text + " is clicked", Toast.LENGTH_SHORT).show();
+
+        if (item.text.equals("Blood Pressure")) {
+            Intent lvBPReadingIntent = new Intent(MainActivity.this, ListBPReading.class);
+            startActivity(lvBPReadingIntent);
+        }
+
+        if (item.text.equals("Weight")) {
+            Intent lvWeightsIntent = new Intent(MainActivity.this, ListWeightRecord.class);
+            startActivity(lvWeightsIntent);
+        }
+
+        if (item.text.equals("Appointment")) {
+            Intent lvApptIntent = new Intent(MainActivity.this, ListAppointments.class);
+            startActivity(lvApptIntent);
+        }
     }
 }

@@ -93,6 +93,12 @@ public class ListAppointments extends AppCompatActivity {
                 startActivityForResult(addApptIntent,REQUEST_NEW_APPT_CODE);
 
                 return (true);
+
+            case R.id.addcontact:
+                Intent addContact = new Intent(getApplicationContext(), ApptContactActivity.class);
+                startActivity(addContact);
+
+                return (true);
         }
         return true;
     }

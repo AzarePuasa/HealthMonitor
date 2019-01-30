@@ -83,4 +83,10 @@
     <string name="saveReminder">Save BP Reminder</string>
     <string name="setreminder">Set Reminder</string>
 
+    <!--Appointment Contact-->
+    <string name="etHint">Enter Relationship here</string>
+    <string name="btnCommit">Confirm Relation</string>
+    <string name="tvChoice">None selected</string>
+    <string name="addcontact">Add Contact</string>
+
 </resources>
