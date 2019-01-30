@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddApptActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/titlepicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#fff"
+            android:padding="5dp"
+            android:src="@drawable/appointment" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical|center"
+            android:padding="0dp"
+            android:paddingTop="0dp"
+            android:text="@string/listAppointment"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="30dp">
+
+        <!-- Date -->
+        <TableRow android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/datelbl"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/etApptDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:layout_weight="2"
+                android:ems="10"/>
+
+            <Button
+                android:id="@+id/btnApptDatePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/specificdatelbl" />
+        </TableRow>
+
+        <!-- Time -->
+        <TableRow android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/timeblb"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/etApptTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:layout_weight="2"
+                android:ems="10"/>
+
+            <Button
+                android:id="@+id/btnApptTimePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/timelbl" />
+        </TableRow>
+
+        <!-- Location -->
+        <TableRow android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/locationlbl"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/spinnerApptLoc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+
+        <!-- Purpose -->
+        <TableRow android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/purposelbl"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/etApptPurpose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:lines="2"
+                android:maxLines="2"
+                android:singleLine="false"
+                android:autofillHints="@string/apptpurposehint"/>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

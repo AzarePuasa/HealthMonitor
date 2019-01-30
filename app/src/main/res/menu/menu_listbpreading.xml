@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ListBPReading">
+
     <item
         android:id="@+id/addBPItem"
         android:icon="@android:drawable/ic_menu_add"
@@ -13,6 +14,12 @@
         android:id="@+id/filterBPItem"
         android:icon="@android:drawable/ic_menu_compass"
         android:title="@string/filterBPReading"
+        app:showAsAction="always|withText" />
+
+    <item
+        android:id="@+id/bpreminder"
+        android:icon="@android:drawable/ic_popup_reminder"
+        android:title="@string/setreminder"
         app:showAsAction="always|withText" />
 
     <item

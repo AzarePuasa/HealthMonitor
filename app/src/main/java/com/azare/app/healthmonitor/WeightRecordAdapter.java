@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.azare.app.healthmonitor.model.DailyBPReadings;
 import com.azare.app.healthmonitor.model.WeightRecord;
 import com.azare.app.healthmonitor.utils.HMUtils;
 

@@ -8,7 +8,7 @@ public class HMDBHelper extends SQLiteOpenHelper {
 
     private static HMDBHelper sInstance = null;
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "HealthMon.db";
 
     private static final String TEXT_TYPE = " TEXT";
@@ -69,6 +69,8 @@ public class HMDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_BP_READING_TABLE);
         db.execSQL(CREATE_WEIGHT_RECORD_TABLE);
+        db.execSQL(CREATE_APPT_RECORD_TABLE);
+
     }
 
     @Override
@@ -77,6 +79,7 @@ public class HMDBHelper extends SQLiteOpenHelper {
 
             db.execSQL(DELETE_BP_READING_TABLE);
             db.execSQL(DELETE_WEIGHT_RECORD_TABLE);
+            db.execSQL(DELETE_APPT_RECORD_TABLE);
             onCreate(db);
         }
     }

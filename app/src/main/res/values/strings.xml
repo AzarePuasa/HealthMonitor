@@ -46,5 +46,47 @@
     <string name="successmsg">"Successfully inserted reading"</string>
     <string name="specificdatelbl">Select Date</string>
     <string name="listBP">List BP Reading</string>
+    <string name="showappts">Show Appointment Records</string>
+    <string name="dummyappointments">Generate Dummy Appointment Records</string>
+    <string name="dummyapptinfo">This Activity Generates Dummy Appointment</string>
+    <string name="listAppointment">List Appointments</string>
+    <string name="timeblb">Time</string>
+    <string name="locationlbl">Location</string>
+    <string name="purposelbl">Purpose</string>
+    <string name="timelbl">Select Time</string>
+    <string name="apptpurposehint">Purpose of Appointment</string>
+    <string name="addAppointment">Add Appointment</string>
+    <string name="saveAppointment">Save Appointment</string>
+    <string name="editAppointment">Edit Appointment</string>
+    <string name="dummyreminder">Generate Dummy Reminder</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="fragapptcompleted">This is Completed Appointment</string>
+    <string name="fragapptupcoming">This is Upcoming Appointment</string>
+
+
+    <!-- Alarm -->
+    <string name="stop_alarm">Stop Alarm</string>
+    <string name="start_alarm">Start Alarm</string>
+    <string name="edit_text_hint">Input your Alarm time</string>
+    <string name="hours">Hours</string>
+    <string name="minutes">Minutes</string>
+    <string name="seconds">Seconds</string>
+    <string name="label">Select your Alarm input type from below:</string>
+
+
+    <!-- BP Reminder -->
+    <string name="morbpreminder">Morning Reminder</string>
+    <string name="aftbpreminder">Afternoon Reminder</string>
+    <string name="evebpreminder">Evening Reminder</string>
+    <string name="saveReminder">Save BP Reminder</string>
+    <string name="setreminder">Set Reminder</string>
+
+    <!--Appointment Contact-->
+    <string name="etHint">Enter Relationship here</string>
+    <string name="btnCommit">Confirm Relation</string>
+    <string name="tvChoice">None selected</string>
+    <string name="addcontact">Add Contact</string>
 
 </resources>
