@@ -44,6 +44,5 @@ public class ViewApptActivity extends AppCompatActivity {
         tvApptLoc.setText(appointment.getLocation());
 
         tvApptPurpose.setText(appointment.getPurpose());
-
     }
 }
