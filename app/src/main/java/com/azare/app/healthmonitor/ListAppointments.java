@@ -36,13 +36,25 @@ public class ListAppointments extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_appointments);
 
+        Log.i(HMUtils.LOGTAG, "ListAppointment onCreate");
+
+        if (savedInstanceState !=null) {
+            Log.i(HMUtils.LOGTAG, "savedInstanceState is not null");
+
+            String strTest = savedInstanceState.getString("test", "none");
+
+            Log.i(HMUtils.LOGTAG, "Test: " +  strTest);
+
+        } else {
+            Log.i(HMUtils.LOGTAG, "savedInstanceState is null");
+        }
+
         daoApptRecord = new DAOApptRecord(this);
 
         tabLayout = findViewById(R.id.tablayout);
         tabUpcoming = findViewById(R.id.tabUpcoming);
         tabCompleted = findViewById(R.id.tabCompleted);
         viewPager = findViewById(R.id.viewPager);
-
 
         setupViewPagerAdapter(viewPager);
 
@@ -66,13 +78,19 @@ public class ListAppointments extends AppCompatActivity {
         });
     }
 
-    private void setupViewPagerAdapter(ViewPager viewPager)
-    {
+    private void setupViewPagerAdapter(ViewPager viewPager) {
+        apptPagerAdapter = ApptPagerAdapter.getInstance();
+
+        if (apptPagerAdapter != null) {
+            apptPagerAdapter.removeAllFragment();
+            apptPagerAdapter.notifyDataSetChanged();
+        }
+
         apptPagerAdapter = ApptPagerAdapter.initialize(getSupportFragmentManager());
 
         //order is very important here; they correspond to the tab position from left to right
-        apptPagerAdapter.addFragment(ApptCompletedFrag.newInstance(), "Completed Appointments");
-        apptPagerAdapter.addFragment(ApptUpcomingFrag.newInstance(), "Upcoming Appointments");
+        apptPagerAdapter.addFragment(ApptCompletedFrag.newInstance(), "Completed Appointments", 0);
+        apptPagerAdapter.addFragment(ApptUpcomingFrag.newInstance(), "Upcoming Appointments", 1);
 
         viewPager.setAdapter(apptPagerAdapter);
         viewPager.setCurrentItem(0);
@@ -124,4 +142,36 @@ public class ListAppointments extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(HMUtils.LOGTAG, "ListAppointment onPause");
+        Bundle bundle = new Bundle();
+        bundle.putString("test", "This is a test");
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(HMUtils.LOGTAG, "ListAppointment onResume");
+
+        Log.i(HMUtils.LOGTAG, "Fragment Count: " + apptPagerAdapter.getCount());
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outstate) {
+        super.onSaveInstanceState(outstate);
+        outstate.putString("test", "This is a test");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(HMUtils.LOGTAG, "ListAppointment onDestroy");
+    }
+
+
 }
+

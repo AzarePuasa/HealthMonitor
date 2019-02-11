@@ -25,6 +25,13 @@ public class Appointment implements Serializable {
         this.m_iMonth = iMonth;
         this.m_iYear = iYear;
         this.m_strHour = strHour;
+
+        int iMinute =  Integer.parseInt(strMinutes);
+
+        if (iMinute >= 0 && iMinute <= 9) {
+            strMinutes = "0" + strMinutes;
+        }
+
         this.m_strMinutes = strMinutes;
     }
 

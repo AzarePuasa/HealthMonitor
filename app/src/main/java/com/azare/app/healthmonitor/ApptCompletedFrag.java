@@ -1,5 +1,6 @@
 package com.azare.app.healthmonitor;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,9 @@ public class ApptCompletedFrag extends Fragment {
 
     public ApptCompletedFrag() {
         // Required empty public constructor
+        apptRecord = new DAOApptRecord(getContext());
+
+        lCompletedAppts = apptRecord.listCompletedAppt();
     }
 
     public static ApptCompletedFrag newInstance()
@@ -41,13 +45,9 @@ public class ApptCompletedFrag extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        apptRecord = new DAOApptRecord(getContext());
-
         recyclerView = (RecyclerView) getView().findViewById(R.id.allApptCompleted);
 
-        lCompletedAppts = apptRecord.listCompletedAppt();
-
-        Log.i(HMUtils.LOGTAG, "Number of items:" + lCompletedAppts.size());
+        Log.i(HMUtils.LOGTAG, "Number of completed items:" + lCompletedAppts.size());
 
         apptAdapter = new ApptAdapter(lCompletedAppts, false);
 

@@ -12,16 +12,14 @@ public class ApptPagerAdapter extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
-    public static ApptPagerAdapter instance = null;
+    public static ApptPagerAdapter instance;
 
     private ApptPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
     public static ApptPagerAdapter initialize(FragmentManager fm) {
-        if (instance == null) {
-            instance = new ApptPagerAdapter(fm);
-        }
+        instance = new ApptPagerAdapter(fm);
 
         return instance;
     }
@@ -31,26 +29,33 @@ public class ApptPagerAdapter extends FragmentPagerAdapter {
     }
 
     @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
+    @Override
     public Fragment getItem(int position)
     {
         return mFragmentList.get(position);
     }
 
     @Override
-    public int getCount()
-    {
+    public int getCount() {
         return mFragmentList.size();
     }
 
     @Override
-    public CharSequence getPageTitle(int position)
-    {
+    public CharSequence getPageTitle(int position) {
         return mFragmentTitleList.get(position);
     }
 
-    public void addFragment(Fragment fragment, String title)
-    {
+    public void addFragment(Fragment fragment, String title, int position) {
         mFragmentList.add(fragment);
-        mFragmentTitleList.add(title);
+        mFragmentTitleList.add(position, title);
+    }
+
+    public void removeAllFragment() {
+        mFragmentList.clear();
+        mFragmentTitleList.clear();
     }
 }

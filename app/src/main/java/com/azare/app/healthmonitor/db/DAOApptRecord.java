@@ -42,7 +42,9 @@ public class DAOApptRecord extends DAOHealthMonitor {
             String strPurpose = cursor.getString(7);
             long timestamp = cursor.getLong(8);
 
-            Appointment appointment = new Appointment(iDay, iMonth,iYear, strHour,strMinutes);
+
+
+            Appointment appointment = new Appointment(iDay, iMonth, iYear, strHour, strMinutes);
 
             appointment.setId(id);
             appointment.setLocation(strLocation);

@@ -52,7 +52,7 @@ public class HMDBtables {
         public static final String COL_TIMESTAMP = "timestamp";
 
         public static final String[] ALL_COLUMNS =
-                {COL_APPT_ID,COL_DAY,COL_MONTH,COL_YEAR,COL_HOUR,COL_MONTH,
+                {COL_APPT_ID,COL_DAY,COL_MONTH,COL_YEAR,COL_HOUR,COL_MINUTE,
                         COL_LOCATION,COL_PURPOSE,COL_TIMESTAMP};
 
     }

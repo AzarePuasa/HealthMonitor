@@ -1,5 +1,6 @@
 package com.azare.app.healthmonitor;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,10 +26,16 @@ public class ApptUpcomingFrag extends Fragment {
 
     public ApptUpcomingFrag() {
         // Required empty public constructor
+        Log.i(HMUtils.LOGTAG, "ApptUpcomingFrag default constructor");
+        apptRecord = new DAOApptRecord(getContext());
+
+        //query table for readings.
+        lUpcomingAppts = apptRecord.listUpcomingAppt();
     }
 
     public static ApptUpcomingFrag newInstance()
     {
+        Log.i(HMUtils.LOGTAG, "ApptUpcomingFrag newInstance");
         return new ApptUpcomingFrag();
     }
 
@@ -36,69 +43,91 @@ public class ApptUpcomingFrag extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.e(HMUtils.LOGTAG, "OnCreate Start");
-
-        apptRecord = new DAOApptRecord(getContext());
-
-        //query table for readings.
-        lUpcomingAppts = apptRecord.listUpcomingAppt();
-
-        Log.i(HMUtils.LOGTAG, "Number of items:" + lUpcomingAppts.size());
-
-        //update list in adapter.
-        apptAdapter = new ApptAdapter(lUpcomingAppts, true);
-
-        Log.e(HMUtils.LOGTAG, "OnCreate End");
+        Log.i(HMUtils.LOGTAG, "ApptUpcomingFrag OnCreate");
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Log.e(HMUtils.LOGTAG,"onActivityCreated Start");
+        Log.i(HMUtils.LOGTAG,"ApptUpcomingFrag onActivityCreated");
+
+        Log.i(HMUtils.LOGTAG, "Number of Upcoming items:" + lUpcomingAppts.size());
+
+        //update list in adapter.
+        apptAdapter = new ApptAdapter(lUpcomingAppts, true);
 
         recyclerView.setAdapter(apptAdapter);
-
-        Log.e(HMUtils.LOGTAG,"onActivityCreated End");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.e(HMUtils.LOGTAG,"onCreateView Start");
+        Log.i(HMUtils.LOGTAG,"ApptUpcomingFrag onCreateView");
 
         View view = inflater.inflate(R.layout.fragment_appt_upcoming,
                 container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.allApptUpcoming);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        updateList();
 
-        Log.e(HMUtils.LOGTAG,"onCreateView End");
         return view;
     }
 
     @Override
     public void onResume()
     {
-        Log.e(HMUtils.LOGTAG,"onResume Start");
+        Log.i(HMUtils.LOGTAG,"ApptUpcomingFrag onResume");
 
         super.onResume();
         updateList();
-
-        Log.e(HMUtils.LOGTAG,"onResume End");
     }
 
     public void updateList()
     {
-        Log.e(HMUtils.LOGTAG,"updateList Start");
+        Log.i(HMUtils.LOGTAG,"ApptUpcomingFrag updateList");
         //query table for readings.
         lUpcomingAppts = apptRecord.listUpcomingAppt();
 
         apptAdapter = new ApptAdapter(lUpcomingAppts,true);
         recyclerView.setAdapter(apptAdapter);
 
-        Log.e(HMUtils.LOGTAG,"updateList End");
+        apptAdapter.notifyDataSetChanged();
     }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        Log.i(HMUtils.LOGTAG,"ApptUpcomingFrag onSaveInstanceState");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i(HMUtils.LOGTAG,"ApptUpcomingFrag onPause");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i(HMUtils.LOGTAG,"ApptUpcomingFrag onDestroy");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.i(HMUtils.LOGTAG,"ApptUpcomingFrag onDetach");
+    }
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.i(HMUtils.LOGTAG,"ApptUpcomingFrag onAttach");
+    }
+
+
 }
