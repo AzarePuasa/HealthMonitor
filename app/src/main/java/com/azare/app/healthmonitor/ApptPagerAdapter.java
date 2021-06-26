@@ -3,12 +3,14 @@ package com.azare.app.healthmonitor;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
+
+import com.azare.app.healthmonitor.utils.HMUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ApptPagerAdapter extends FragmentPagerAdapter {
-
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
@@ -19,9 +21,8 @@ public class ApptPagerAdapter extends FragmentPagerAdapter {
     }
 
     public static ApptPagerAdapter initialize(FragmentManager fm) {
-        if (instance == null) {
-            instance = new ApptPagerAdapter(fm);
-        }
+        Log.e(HMUtils.LOGTAG, "ApptPagerAdapter initialize Start");
+        instance = new ApptPagerAdapter(fm);
 
         return instance;
     }
@@ -53,4 +54,6 @@ public class ApptPagerAdapter extends FragmentPagerAdapter {
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);
     }
+
+
 }
